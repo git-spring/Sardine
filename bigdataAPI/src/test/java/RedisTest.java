@@ -1,4 +1,4 @@
-import com.fox.RedisUtil;
+import com.redis.RedisUtil;
 import org.junit.Test;
 
 /**

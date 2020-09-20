@@ -1,4 +1,4 @@
-package com.fox;
+package com.redis;
 
 import java.util.HashMap;
 import java.util.List;

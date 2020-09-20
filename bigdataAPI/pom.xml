@@ -19,6 +19,7 @@
     </properties>
 
     <dependencies>
+        <!-- hbase connect-->
         <dependency>
             <groupId>org.apache.hbase</groupId>
             <artifactId>hbase-client</artifactId>
@@ -30,18 +31,25 @@
             <version>${hbase.version}</version>
         </dependency>
 
-        <!--hive 连接-->
+        <!--hive connect-->
         <dependency>
             <groupId>org.apache.hive</groupId>
             <artifactId>hive-jdbc</artifactId>
             <version>${hive.version}</version>
         </dependency>
 
-        <!--redis 连接-->
+        <!--redis connect-->
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
             <version>${jedis.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>2.2.0</version>
         </dependency>
 
     </dependencies>

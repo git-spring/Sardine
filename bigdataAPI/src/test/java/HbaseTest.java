@@ -1,4 +1,4 @@
-import com.fox.HbaseUtils;
+import com.hbase.HbaseUtils;
 import org.junit.Test;
 
 /**

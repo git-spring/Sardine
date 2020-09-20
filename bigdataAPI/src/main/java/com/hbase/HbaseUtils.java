@@ -1,4 +1,4 @@
-package com.fox;
+package com.hbase;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;

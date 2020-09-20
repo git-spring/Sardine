@@ -1,4 +1,4 @@
-import com.fox.HiveUtils;
+import com.hive.HiveUtils;
 import org.junit.Test;
 
 import java.sql.ResultSet;
