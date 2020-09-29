@@ -62,6 +62,7 @@ public class HbaseUtils {
 
         try {
             Admin admin = conn.getAdmin();
+            // TODO: 2020-9-25 update  deprecated api
             HTableDescriptor hTableDescriptor = new HTableDescriptor(TableName.valueOf(tableName));
             if (admin.tableExists(TableName.valueOf(tableName))) {
                 System.out.println(tableName + "is already exists");

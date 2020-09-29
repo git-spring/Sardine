@@ -1,13 +1,17 @@
 package com.redis;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.Transaction;
 
 import static redis.clients.jedis.BinaryClient.LIST_POSITION.BEFORE;
@@ -17,11 +21,10 @@ import static redis.clients.jedis.BinaryClient.LIST_POSITION.BEFORE;
  */
 public class RedisUtil {
 
-    /*
+    /**
      * redis-server 带配置文件启动 ./redis-server redis.conf &
      * redis-cli  连接 ./redis-cli --h node02
      */
-
     private static JedisPoolConfig config;
     private static JedisPool jedisPool;
     private static Jedis jedis;
@@ -34,7 +37,8 @@ public class RedisUtil {
     public static final String redisHost = "dcdl-dgv-cdh7.localhost.com";
     public static final int redisPort = 6379;
 
-    // 获取jedis连接
+
+    /** 获取jedis连接 */
     static {
         config = new JedisPoolConfig();
         config.setMaxIdle(maxIdle);
@@ -45,7 +49,9 @@ public class RedisUtil {
         jedis = jedisPool.getResource();
     }
 
-    // 对key的操作
+    /**
+     * 对key的操作
+     */
     public static void opKey() {
         // 检查一个key是否存在
         Boolean a1 = jedis.exists("a1");
@@ -75,7 +81,9 @@ public class RedisUtil {
 
     }
 
-    // 对 String 类型的操作
+    /**
+     * 对 String 类型的操作
+     */
     public static void opString() {
         // redis数据库的密码
         jedis.auth("123456");
@@ -107,7 +115,9 @@ public class RedisUtil {
         jedis.append("a1","append");
     }
 
-    // 对 hash 的操作
+    /**
+     * 对 hash 的操作
+     */
     public static void opHash() {
         // 向key 中添加field和value , 这样会形成一个对象 person[name:zhangsan,age:30,city:sz]
         jedis.hset("person","name","zhangsan");
@@ -139,7 +149,9 @@ public class RedisUtil {
 
     }
 
-    // 对 list 的操作
+    /**
+     * 对 list 的操作
+     */
     public static void opList(){
         // 从左边向list中添加数据, 一次可以添加多个
         jedis.lpush("l1","firstvalue","secondvalue");
@@ -166,7 +178,9 @@ public class RedisUtil {
 
     }
 
-    // 对 set 的 操作
+    /**
+     * 对 set 的 操作
+     */
     public static void opSet(){
         // 向key中添加数据,一次可以添加多个，key中已存在的元素,不会添加
         jedis.sadd("s1","zhangsan","lis","six");
@@ -191,7 +205,27 @@ public class RedisUtil {
         jedis.sdiffstore("deskey","s1","s2","s3"); //把集合的差集保存到desKey中
     }
 
-    // redis 事务
+    /**
+     * redis 管道操作,批量执行,提升性能
+     */
+    public static void opPipline(){
+
+        // 获取管道对象
+        Pipeline pipelined = jedis.pipelined();
+
+        for (int i = 0;i<100000;i++){
+            pipelined.incr("a1");
+        }
+        // 执行命令 (一次性执行所有命令,而不是一个一个执行)
+        pipelined.sync();
+
+        // 释放资源
+        jedis.close();
+    }
+
+    /**
+     * redis 事务
+     */
     public static void opTransaction(){
     	// 开启事务
 	    Transaction trans = jedis.multi();
@@ -202,7 +236,9 @@ public class RedisUtil {
 
     }
 
-	// redis watch
+    /**
+     * redis watch
+     */
 	public static void opWatch(){
 		jedis.watch("a1","a2");
 		Transaction trans = jedis.multi();
@@ -211,6 +247,26 @@ public class RedisUtil {
 		trans.exec();   // 如果在事务提交之前，watch监听的key被其它客户端修改，事务会执行失败，
 	}
 
-    // TODO: 2020-9-10  java 连接redis集群
+    /**
+     * java 连接 redis 集群
+     */
+    public static void redisCluster(){
+
+        // redis集群的 ip 和 port
+        Set<HostAndPort> nodes = new HashSet<>();
+        nodes.add(new HostAndPort("192.168.56.101",6379));
+        nodes.add(new HostAndPort("192.168.56.101",6380));
+        nodes.add(new HostAndPort("192.168.56.102",6379));
+        nodes.add(new HostAndPort("192.168.56.102",6380));
+        nodes.add(new HostAndPort("192.168.56.103",6379));
+        nodes.add(new HostAndPort("192.168.56.103",6380));
+        // redis 集群对象
+        JedisCluster jedisCluster = new JedisCluster(nodes);
+        // 可以直接使用集群
+        jedisCluster.set("a1","100");
+        jedisCluster.get("a1");
+    }
+
+
 
 }
