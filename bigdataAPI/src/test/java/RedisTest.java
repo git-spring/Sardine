@@ -1,4 +1,5 @@
-import com.redis.RedisUtil;
+import com.common.baseApi.RedisAPI;
+
 import org.junit.Test;
 
 /**
@@ -8,6 +9,6 @@ public class RedisTest {
 
     @Test
     public void opStringTest(){
-        RedisUtil.opString();
+        RedisAPI.opString();
     }
 }

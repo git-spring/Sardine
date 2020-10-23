@@ -1,4 +1,3 @@
-import com.kafka.KafkaUtils;
 import org.junit.Test;
 
 /**

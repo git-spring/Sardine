@@ -1,4 +1,4 @@
-package com.hbase;
+package com.common.baseApi;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -27,7 +27,7 @@ import java.util.concurrent.Executors;
 /**
  * @author Spring
  */
-public class HbaseUtils {
+public class HbaseAPI {
     private static Configuration conf = null;
     // 创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。
     private static ExecutorService executor = null;

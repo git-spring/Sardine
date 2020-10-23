@@ -1,4 +1,5 @@
-import com.hbase.HbaseUtils;
+import com.common.baseApi.HbaseAPI;
+
 import org.junit.Test;
 
 /**
@@ -8,7 +9,7 @@ public class HbaseTest {
 
     @Test
     public void getCellTest(){
-        String cell = HbaseUtils.getCell("bill:test", "00008", "f", "c");
+        String cell = HbaseAPI.getCell("bill:test", "00008", "f", "c");
         System.out.println(cell);
     }
 }

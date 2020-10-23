@@ -1,4 +1,4 @@
-import com.hive.HiveUtils;
+import com.common.baseApi.HiveAPI;
 import org.junit.Test;
 
 import java.sql.ResultSet;
@@ -12,14 +12,14 @@ public class HiveTest {
     @Test
     public void queryDataTest() throws SQLException {
         String sql = "select * from test0315.video_user";
-        ResultSet rs = HiveUtils.queryData(sql);
+        ResultSet rs = HiveAPI.queryData(sql);
         System.out.println(rs);
     }
 
     @Test
     public void foreachResultSetTest() throws SQLException {
         String sql = "select * from test0315.video_user limit 10";
-        HiveUtils.foreachResultSet(sql);
+        HiveAPI.foreachResultSet(sql);
 
     }
 }

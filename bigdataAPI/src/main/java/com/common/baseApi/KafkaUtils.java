@@ -1,4 +1,4 @@
-package com.kafka;
+package com.common.baseApi;
 
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -9,19 +9,24 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.util.Arrays;
 import java.util.Properties;
+import java.util.Set;
 
 /**
+ *  kafka 的 生产者和消费者
  * @author Spring
  */
 public class KafkaUtils {
 
+    /**
+     *  kafka 的生产者
+     */
     public static void producer() {
         Properties props = new Properties();
         // kafka集群服务器
         props.put("bootstrap.servers", "node01:9092,node02:9092,node03:9092");
         // 设置 ack
         props.put("acks", "0");
-        // 设置重试次数，0表示不重试
+        // 设置重试次数，默认为 0
         props.put("retries", 3);
 
         props.put("batch.size", 16384);
@@ -30,14 +35,17 @@ public class KafkaUtils {
         // key和value 的序列化类型
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
-
+        // 使用自定义的分区器, 使用默认的则不加
+        props.put("partitioner.class","com.kafka.KafkaPartition");
         //Kafka
         KafkaProducer producer = new KafkaProducer(props);
-        producer.send(new ProducerRecord("asset_topic", "31"));
+        producer.send(new ProducerRecord("ldd-test", "31"));
         producer.flush();
     }
 
-
+    /**
+     *  kafka 的消费者
+     */
     public static void consumer() {
         Properties props = new Properties();
         // kafka 服务器
@@ -60,15 +68,19 @@ public class KafkaUtils {
             // 获取数据
             ConsumerRecords<String, String> records = consumer.poll(100);
             for (ConsumerRecord<String, String> record : records) {
-                System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
+                System.out.printf(" topic = %s, partition = %s, offset = %d, value = %s%n", record.topic(), record.partition(), record.offset(), record.value());
+//                System.out.println(record);
+                Set assignment = consumer.assignment();
+                System.out.println(assignment);
             }
+            consumer.close();
         }
 
     }
 
 
     public static void main(String[] args) {
-//        producer();
-        consumer();
+        producer();
+//        consumer();
     }
 }

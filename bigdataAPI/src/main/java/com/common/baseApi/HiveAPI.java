@@ -1,4 +1,4 @@
-package com.hive;
+package com.common.baseApi;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 /**
  * @author Spring
  */
-public class HiveUtils {
+public class HiveAPI {
 
     // hive-jdbc 方式操作 hive
     private static Connection conn = null;

@@ -1,4 +1,4 @@
-package com.redis;
+package com.common.baseApi;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,7 +19,7 @@ import static redis.clients.jedis.BinaryClient.LIST_POSITION.BEFORE;
 /**
  * @author Spring
  */
-public class RedisUtil {
+public class RedisAPI {
 
     /**
      * redis-server 带配置文件启动 ./redis-server redis.conf &
