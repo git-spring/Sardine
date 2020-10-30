@@ -40,21 +40,22 @@ public class KafkaOffset {
 		KafkaConsumer consumer = new KafkaConsumer(props);
 		// 指定 订阅的topic,可以订阅多个
 		consumer.subscribe(Arrays.asList(Constant.TOPIC));
+		// 从redis中获取上一次保存的offset
 
 		while (true) {
-			// 从redis中获取上一次保存的offset
-			Map<TopicPartition, Long> fromOffset = OffsetManager.getOffsetFromRedis();
-
 			ConsumerRecords records = consumer.poll(Duration.ofSeconds(1));
-			if (!records.isEmpty()) {
-				Set<TopicPartition> assignment = consumer.assignment();
-				System.out.println(assignment);
-				if (fromOffset.size() > 0) {
-					for (TopicPartition tp : assignment) {
-						// seek will Overrides the fetch offsets
-						System.out.println(fromOffset.get(tp));
-						consumer.seek(tp, fromOffset.get(tp)+1);
-					}
+			Map<TopicPartition, Long> fromOffset = OffsetManager.getOffsetFromRedis();
+			// 如果没有poll到数据,则重新拉取
+			if (records.isEmpty()) {
+				continue;
+			}
+			Set<TopicPartition> assignment = consumer.assignment();
+			System.out.println(assignment);
+			if (fromOffset.size() > 0) {
+				for (TopicPartition tp : assignment) {
+					// seek will Overrides the fetch offsets
+					System.out.println(fromOffset.get(tp));
+					consumer.seek(tp, fromOffset.get(tp) + 1);
 				}
 			}
 			// 拉取数据,开始消费
