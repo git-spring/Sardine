@@ -15,7 +15,7 @@ import java.util.Set;
  *  kafka 的 生产者和消费者
  * @author Spring
  */
-public class KafkaUtils {
+public class KafkaAPI {
 
     /**
      *  kafka 的生产者

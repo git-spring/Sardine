@@ -19,7 +19,7 @@ public class RedisUtils {
 	public static final long maxWaitMillis = 1000;
 	public static final int maxTotal = 50;
 	public static final int minIdle = 5;
-	public static final String redisHost = "dcdl-dgv-cdh7.localhost.com";
+	public static final String redisHost = "dcdl-dgv-cdh8.localhost.com";
 	public static final int redisPort = 6379;
 
 
@@ -35,8 +35,12 @@ public class RedisUtils {
 		config.setMinIdle(minIdle);
 		jedisPool = new JedisPool(config, redisHost, redisPort);
 		jedis = jedisPool.getResource();
+		jedis.auth("1qaz@WSX3edc");
+		// 使用15号库
+		jedis.select(15);
 		return jedis;
 	}
+
 
 
 

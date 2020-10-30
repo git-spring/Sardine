@@ -25,8 +25,34 @@ public class ConfigInfo {
 	}
 
 
-	public static Properties kafkaParam() {
-		// kafka的配置信息
+	/**
+	 *  kafka 生产者的配置信息
+	 * @return
+	 */
+	public static Properties kafkaProducerParam() {
+
+		Properties props = new Properties();
+
+		// kafka 服务器
+		props.put("bootstrap.servers", prop.getProperty("bootstrap.servers"));
+		props.put("acks", prop.getProperty("acks"));
+		props.put("retries", prop.getProperty("retries"));
+		props.put("batch.size", prop.getProperty("batch.size"));
+		props.put("linger.ms", prop.getProperty("linger.ms"));
+		props.put("buffer.memory", prop.getProperty("buffer.memory"));
+		// key和value的反序列化类型
+		props.put("key.deserializer", prop.getProperty("key.deserializer"));
+		props.put("value.deserializer", prop.getProperty("value.deserializer"));
+
+		return props;
+	}
+
+	/**
+	 *  kafka 消费者的配置信息
+	 * @return
+	 */
+	public static Properties kafkaConsumerParam() {
+
 		Properties props = new Properties();
 
 		// kafka 服务器
@@ -45,6 +71,8 @@ public class ConfigInfo {
 
 		return props;
 	}
+
+
 
 
 }

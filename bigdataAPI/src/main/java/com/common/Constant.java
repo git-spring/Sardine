@@ -7,6 +7,7 @@ package com.common;
 
 public class Constant {
 
-	public static String KAFKA_TOPIC_OFFSETS="TOPIC_OFFSETS";
+	public static String KAFKA_TOPIC_OFFSETS="TOPIC_OFFSETS-111";
 	public static String TOPIC = "ldd-test";
+	public static String SEPARATOR = ",";
 }

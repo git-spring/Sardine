@@ -7,13 +7,18 @@ package com.kafka;
 
 import com.common.ConfigInfo;
 import com.common.Constant;
+import com.utils.OffsetManager;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.TopicPartition;
 
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -27,30 +32,57 @@ public class KafkaOffset {
 
 	/**
 	 *  kafka 的消费者
-	 *   设置offset 不自动提交,而是手动提交
+	 *   设置offset 不自动提交,而是手动保存到redis中
 	 */
 	public static void consumer() {
 		// kafka 的配置信息
-		Properties props = ConfigInfo.kafkaParam();
-		// 创建KafkaConsumer
+		Properties props = ConfigInfo.kafkaConsumerParam();
 		KafkaConsumer consumer = new KafkaConsumer(props);
 		// 指定 订阅的topic,可以订阅多个
 		consumer.subscribe(Arrays.asList(Constant.TOPIC));
 
-		// 获取数据
-//		while (true) {
-			ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(3));
-			for (ConsumerRecord<String, String> record : records) {
-				System.out.printf(" topic = %s, partition = %s, offset = %d, value = %s, timestamp=%d%n ",
-					record.topic(), record.partition(), record.offset(), record.value(),record.timestamp());
-//				System.out.println(record);
-				Set assignment = consumer.assignment();
+		while (true) {
+			// 从redis中获取上一次保存的offset
+			Map<TopicPartition, Long> fromOffset = OffsetManager.getOffsetFromRedis();
+
+			ConsumerRecords records = consumer.poll(Duration.ofSeconds(1));
+			if (!records.isEmpty()) {
+				Set<TopicPartition> assignment = consumer.assignment();
 				System.out.println(assignment);
+				if (fromOffset.size() > 0) {
+					for (TopicPartition tp : assignment) {
+						// seek will Overrides the fetch offsets
+						System.out.println(fromOffset.get(tp));
+						consumer.seek(tp, fromOffset.get(tp)+1);
+					}
+				}
 			}
+			// 拉取数据,开始消费
+			ConsumerRecords records1 = consumer.poll(Duration.ofSeconds(1));
+			System.out.println("records.count()   =  " + records1.count());
+			Iterator<ConsumerRecord<String, String>> iterator = records1.iterator();
+			Map<TopicPartition, Long> offsetMap = new HashMap<>();
+			while (iterator.hasNext()) {
+				ConsumerRecord<String, String> record = iterator.next();
+				System.out.printf("topic = %s, partition = %s, offset = %d, value = %s, timestamp=%d%n ", record.topic(), record.partition(), record.offset(), record.value(), record.timestamp());
+				offsetMap.put(new TopicPartition(record.topic(), record.partition()), record.offset());
+			}
+			// 消费完一个批次的数据再保存offset
+			if (offsetMap.size() > 0) {
+				offset2redis(offsetMap);
+			}
+		}
+	}
 
-			// consumer.close();
 
-//		}
+	public static void offset2redis(Map<TopicPartition, Long> offsetMap) {
+		try {
+			OffsetManager.updateTopicOffset2RedisBak();
+			Thread.sleep(10000);
+			OffsetManager.updateTopicOffset2Redis(offsetMap);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) {
