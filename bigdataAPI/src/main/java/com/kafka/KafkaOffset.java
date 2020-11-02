@@ -40,10 +40,10 @@ public class KafkaOffset {
 		KafkaConsumer consumer = new KafkaConsumer(props);
 		// 指定 订阅的topic,可以订阅多个
 		consumer.subscribe(Arrays.asList(Constant.TOPIC));
-		// 从redis中获取上一次保存的offset
 
 		while (true) {
 			ConsumerRecords records = consumer.poll(Duration.ofSeconds(1));
+			// 从redis中获取上一次保存的offset
 			Map<TopicPartition, Long> fromOffset = OffsetManager.getOffsetFromRedis();
 			// 如果没有poll到数据,则重新拉取
 			if (records.isEmpty()) {
@@ -75,11 +75,10 @@ public class KafkaOffset {
 		}
 	}
 
-
 	public static void offset2redis(Map<TopicPartition, Long> offsetMap) {
 		try {
 			OffsetManager.updateTopicOffset2RedisBak();
-			Thread.sleep(10000);
+			Thread.sleep(3000);
 			OffsetManager.updateTopicOffset2Redis(offsetMap);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
