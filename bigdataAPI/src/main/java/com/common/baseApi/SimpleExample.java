@@ -58,7 +58,7 @@ public class SimpleExample {
 		}
 	}
 
-	private List<String> m_replicaBrokers ;
+	private List<String> m_replicaBrokers;
 
 	public SimpleExample() {
 		m_replicaBrokers = new ArrayList<>();

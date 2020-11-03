@@ -85,7 +85,7 @@ public class OffsetManager {
 		}
 	}
 
-	public static Set<TopicPartition> tpSet(KafkaConsumer consumer){
+	public static Set<TopicPartition> tpSet(KafkaConsumer consumer) {
 		List<PartitionInfo> list = consumer.partitionsFor(Constant.TOPIC);
 		HashSet<TopicPartition> set = new HashSet<>();
 		for (PartitionInfo tpi : list) {
@@ -116,7 +116,6 @@ public class OffsetManager {
 		Map<TopicPartition, Long> partitionOffsets = consumer.endOffsets(tp);
 		return partitionOffsets;
 	}
-
 
 
 	public static void main(String[] args) {
