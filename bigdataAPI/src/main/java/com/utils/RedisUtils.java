@@ -27,7 +27,7 @@ public class RedisUtils {
 	 *  对外部提供 redis 的连接对象
 	 * @return jedis对象
 	 */
-	public static Jedis getRedisConn(){
+	public static Jedis getRedisConn() {
 		config = new JedisPoolConfig();
 		config.setMaxIdle(maxIdle);
 		config.setMaxWaitMillis(maxWaitMillis);
@@ -40,9 +40,6 @@ public class RedisUtils {
 		jedis.select(15);
 		return jedis;
 	}
-
-
-
 
 
 }

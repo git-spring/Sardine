@@ -32,13 +32,14 @@ public class MyProducer {
 		props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 		producer = new KafkaProducer(props);
 	}
-	private static KafkaProducer<String,String> producer;
+
+	private static KafkaProducer<String, String> producer;
 
 	/**
 	 *  第一种 异步发送数据,只管发送,不管结果
 	 */
-	private void sendMessageAsync(){
-		ProducerRecord<String,String> record = new ProducerRecord("ldd-test","name","this is a message send with async");
+	private void sendMessageAsync() {
+		ProducerRecord<String, String> record = new ProducerRecord("ldd-test", "name", "this is a message send with async");
 		producer.send(record);
 		producer.close();
 	}
@@ -47,7 +48,7 @@ public class MyProducer {
 	 *  第二种 同步发送数据,等待执行结果
 	 */
 	private void sendMessageSync() throws ExecutionException, InterruptedException {
-		ProducerRecord<String,String> record = new ProducerRecord("ldd-test","name","this is a message send with sync");
+		ProducerRecord<String, String> record = new ProducerRecord("ldd-test", "name", "this is a message send with sync");
 		Future<RecordMetadata> future = producer.send(record);
 		//等待kafka人确认回复,遇到错误则抛出异常,成功则返回RecordMetadata
 		RecordMetadata recordMetadata = future.get();
@@ -56,9 +57,9 @@ public class MyProducer {
 	/**
 	 *  第三种 带回调函数发送数据
 	 */
-	private void sendMessageCallbak(){
-		ProducerRecord<String,String> record = new ProducerRecord<String,String>("kafka-study","name","callback");
-		producer.send(record,new MyProducerCallback());
+	private void sendMessageCallbak() {
+		ProducerRecord<String, String> record = new ProducerRecord<String, String>("kafka-study", "name", "callback");
+		producer.send(record, new MyProducerCallback());
 	}
 
 	/**
@@ -68,7 +69,7 @@ public class MyProducer {
 
 		@Override
 		public void onCompletion(RecordMetadata metadata, Exception e) {
-			if (e !=null){
+			if (e != null) {
 				e.printStackTrace();
 				return;
 			}

@@ -35,6 +35,6 @@ public class BlkMapper extends Mapper<LongWritable, Text, ImmutableBytesWritable
 		Put put = new Put(rowkey.getBytes());
 		put.addColumn(family.getBytes(), column.getBytes(), value.getBytes());
 
-		context.write(immu,put);
+		context.write(immu, put);
 	}
 }
