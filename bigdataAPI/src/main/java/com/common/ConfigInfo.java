@@ -16,7 +16,7 @@ public class ConfigInfo {
 
 	static {
 		prop = new Properties();
-		InputStream in = ConfigInfo.class.getClassLoader().getResourceAsStream("company.conf");
+		InputStream in = ConfigInfo.class.getClassLoader().getResourceAsStream("application-company.properties");
 		try {
 			prop.load(in);
 		} catch (IOException e) {

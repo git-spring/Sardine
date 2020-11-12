@@ -9,5 +9,5 @@ package com.kafka;
  *  获取kafka最新的N条消息
  */
 public class Last_N_message {
-	// TODO: 2020-11-6 指定offset
+	// TODO: 2020-11-6 获取kafka最新的N条消息
 }
