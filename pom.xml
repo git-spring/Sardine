@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>bigdataAPI</module>
+        <module>SparkAPI</module>
     </modules>
 
     <!--	外部依赖放在dependencyManagement 中方便统一管理,各子项目按需取用-->
