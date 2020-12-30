@@ -34,6 +34,13 @@
 			<version>${hbase.version.1x}</version>
 		</dependency>
 
+		<!-- 使用bulkload 需要的包, mapreduce 包单独提取出来了-->
+		<dependency>
+			<groupId>org.apache.hbase</groupId>
+			<artifactId>hbase-mapreduce</artifactId>
+			<version>2.2.5</version>
+		</dependency>
+
 		<!--hive connect-->
 		<dependency>
 			<groupId>org.apache.hive</groupId>

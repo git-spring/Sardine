@@ -1,7 +1,7 @@
-package com.spark
+package com.sparkcore
 
-import org.apache.spark.rdd.RDD
-import org.apache.spark.{HashPartitioner, Partitioner, SparkConf, SparkContext}
+import org.apache.spark.{Partitioner, SparkConf, SparkContext}
+
 
 /**
  * @author: liudw
@@ -345,11 +345,11 @@ object Transform {
     def foldByKeyDemo(): Unit = {
         val sc = createSC()
         val listRdd = sc.makeRDD(Array(("a", 3), ("a", 2), ("c", 4), ("b", 3), ("c", 6), ("c", 8)), 2)
-        val foldByKeyRdd = listRdd.foldByKey(1)( _ + _)
-        foldByKeyRdd.collect()foreach(println)
+        val foldByKeyRdd = listRdd.foldByKey(1)(_ + _)
+        foldByKeyRdd.collect() foreach (println)
     }
 
-    def combineByKeyDemo(): Unit ={
+    def combineByKeyDemo(): Unit = {
         // TODO: combineByKey
     }
 
@@ -358,11 +358,11 @@ object Transform {
      * 按key进行排序
      * 与value的值无关
      */
-    def sortByKeyDemo(): Unit ={
+    def sortByKeyDemo(): Unit = {
         val sc = createSC()
         val listRdd = sc.makeRDD(Array(("a", 3), ("a", 2), ("c", 4), ("b", 3), ("c", 6), ("c", 8)), 2)
         //val sortByKeyRdd = listRdd.sortByKey()    // 正序
-        val sortByKeyRdd = listRdd.sortByKey(false)    // 反序
+        val sortByKeyRdd = listRdd.sortByKey(false) // 反序
 
         sortByKeyRdd.collect().foreach(println)
     }
@@ -371,10 +371,10 @@ object Transform {
      * mapValue
      * 对k-v对的每一个value做处理
      */
-    def mapValueDemo(): Unit ={
+    def mapValueDemo(): Unit = {
         val sc = createSC()
-        val listRdd = sc.makeRDD(Array((1, "a"), (1, "d"), (2,"b"), (3, "c")))
-        val mapValueRdd = listRdd.mapValues(_+"b")
+        val listRdd = sc.makeRDD(Array((1, "a"), (1, "d"), (2, "b"), (3, "c")))
+        val mapValueRdd = listRdd.mapValues(_ + "b")
         mapValueRdd.collect().foreach(println)
 
     }
@@ -384,52 +384,27 @@ object Transform {
      * 把两个RDD中相同key进行关联,相同key的value会生成元组
      *
      */
-    def joinDemo(): Unit ={
+    def joinDemo(): Unit = {
         val sc = createSC()
-        val rdd1 = sc.makeRDD(Array((1, "a"), (1, "d"), (2,"b"), (3, "c"),(4,"d")))
-        val rdd2 = sc.makeRDD(Array((1, 10), (1, 20), (2,30), (3, 40)))
+        val rdd1 = sc.makeRDD(Array((1, "a"), (1, "d"), (2, "b"), (3, "c"), (4, "d")))
+        val rdd2 = sc.makeRDD(Array((1, 10), (1, 20), (2, 30), (3, 40)))
         val joinRdd = rdd1.join(rdd2)
 
         joinRdd.collect().foreach(println)
     }
 
-    def cogroupDemo(): Unit ={
+    def cogroupDemo(): Unit = {
         val sc = createSC()
-        val rdd1 = sc.makeRDD(Array((1, "a"), (1, "d"), (2,"b"), (3, "c"),(4,"d")))
-        val rdd2 = sc.makeRDD(Array((1, 10), (1, 20), (2,30), (3, 40)))
+        val rdd1 = sc.makeRDD(Array((1, "a"), (1, "d"), (2, "b"), (3, "c"), (4, "d")))
+        val rdd2 = sc.makeRDD(Array((1, 10), (1, 20), (2, 30), (3, 40)))
         val cogroupRdd = rdd1.cogroup(rdd2)
 
         cogroupRdd.collect().foreach(println)
     }
 
 
-
     def main(args: Array[String]): Unit = {
-        // mapDemo()
-        // mapPartitionsDemo()
-        // mapPartitionsWithIndexDemo()
-        // flatMapDemo()
-        // glomDemo()
-        // groupByDemo()
-        // filterDemo()
-        // distinctDemo()
-        // coalesceDemo()
-        // repartitionDemo()
-        // sortByDemo()
-        // intersectionDemo()
-        // unionDemo()
-        // subtractDemo()
-        // cartesianDemo()
-        // zipDemo()
-        // partitionByDemo()
-        // groupByKeyDemo()
-        // reduceByKeyDemo()
-        // aggregateByKeyDemo()
-        // foldByKeyDemo()
-        // sortByKeyDemo()
-        // mapValueDemo()
-        // joinDemo()
-        cogroupDemo()
+        groupByKeyDemo()
     }
 }
 
