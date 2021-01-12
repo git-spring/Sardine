@@ -34,6 +34,18 @@
 			<version>${spark.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-streaming_2.11</artifactId>
+			<version>${spark.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-streaming-kafka-0-10_2.11</artifactId>
+			<version>${spark.version}</version>
+		</dependency>
+
 		<!-- spark 读取hive需要的jar -->
 		<dependency>
 			<groupId>org.apache.spark</groupId>

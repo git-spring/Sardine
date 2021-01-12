@@ -1,4 +1,4 @@
-import com.common.baseApi.HiveAPI;
+import com.star.common.baseApi.HiveAPI;
 import org.junit.Test;
 
 import java.sql.ResultSet;

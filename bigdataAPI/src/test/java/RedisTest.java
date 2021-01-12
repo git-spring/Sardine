@@ -1,4 +1,4 @@
-import com.common.baseApi.RedisAPI;
+import com.star.common.baseApi.RedisAPI;
 
 import org.junit.Test;
 
