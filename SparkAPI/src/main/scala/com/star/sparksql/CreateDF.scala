@@ -12,12 +12,18 @@ object CreateDF {
     def main(args: Array[String]): Unit = {
 
         // 创建SparkSession 对象
-        val spark: SparkSession = SparkSession.builder().master("local[*]").appName("createDF").getOrCreate()
+        val spark: SparkSession = SparkSession.builder.master("local[*]").appName("createDF").getOrCreate()
         import spark.implicits._
 
         // 通过读取文件生成(json、csv、...)
         val jsonDF: DataFrame = spark.read.json("SparkAPI/data/emp.json")
         val csvDF: DataFrame = spark.read.csv("SparkAPI/data/users.csv")
+        val textDF = spark.read.text("SparkAPI/data/users.text")
+        val parquetDF = spark.read.parquet("SparkAPI/data/users.parquet")
+        val orcDF = spark.read.orc("SparkAPI/data/users.orc")
+        // 上面读取文件的方法  都是如下的调用方式
+        val formatDF = spark.read.format("json").load("SparkAPI/data/emp.json")
+
 
         // 从hive中查询得到
         jsonDF.createOrReplaceTempView("user")

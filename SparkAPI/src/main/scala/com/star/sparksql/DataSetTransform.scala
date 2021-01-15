@@ -16,7 +16,7 @@ object DataSetTransform {
 
 
         // 创建DataFrame
-        val spark = SparkSession.builder().master("local").getOrCreate()
+        val spark = SparkSession.builder.master("local").getOrCreate()
         import spark.implicits._
         val userDF = spark.read.csv("SparkAPI/data/users.csv")
 

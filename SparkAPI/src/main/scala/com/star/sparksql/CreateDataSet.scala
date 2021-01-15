@@ -14,7 +14,7 @@ object CreateDataSet {
     def main(args: Array[String]): Unit = {
 
         // 创建SparkSession对象
-        val spark = SparkSession.builder().master("local").getOrCreate()
+        val spark = SparkSession.builder.master("local").getOrCreate()
         import spark.implicits._
 
         val users: Dataset[String] = spark.read.textFile("SparkAPI/data/users.csv")
