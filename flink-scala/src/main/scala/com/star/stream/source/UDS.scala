@@ -1,10 +1,8 @@
-package com.star.stream
+package com.star.stream.source
 
 import org.apache.flink.streaming.api.functions.source.SourceFunction
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
-import org.apache.flink.streaming.api.scala._
-import scala.util.Random
-
+import org.apache.flink.api.scala._
 /**
  * @author: liudw
  * @date: 2021-1-26 16:45

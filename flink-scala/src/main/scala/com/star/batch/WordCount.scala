@@ -20,6 +20,7 @@ object WordCount {
         import org.apache.flink.api.scala._
         // 统计数据
         line.flatMap(_.toLowerCase.split(" "))
+            .filter(_.nonEmpty)
             .map((_, 1))
             .groupBy(0)
             .sum(1)

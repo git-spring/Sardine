@@ -11,8 +11,6 @@ import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 object WordCount {
     def main(args: Array[String]): Unit = {
 
-        val input = "flink-scala/in/word.txt"
-
         // 获取flink流处理执行环境
         val env = StreamExecutionEnvironment.getExecutionEnvironment
         // 监听服务器上的端口

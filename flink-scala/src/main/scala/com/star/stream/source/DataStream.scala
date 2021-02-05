@@ -1,7 +1,7 @@
-package com.star.stream
+package com.star.stream.source
 
-import org.apache.flink.streaming.api.scala.{DataStream, StreamExecutionEnvironment}
 import org.apache.flink.api.scala._
+import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 
 /**
  * @author: liudw

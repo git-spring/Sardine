@@ -1,7 +1,15 @@
 package com.star.stream
 
+import java.text.SimpleDateFormat
+
 import org.apache.flink.api.common.functions.MapFunction
+import org.apache.flink.api.java.tuple.Tuple
+import org.apache.flink.streaming.api.functions.AssignerWithPeriodicWatermarks
+import org.apache.flink.streaming.api.functions.timestamps.BoundedOutOfOrdernessTimestampExtractor
 import org.apache.flink.streaming.api.scala._
+import org.apache.flink.streaming.api.watermark.Watermark
+import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindows
+import org.apache.flink.streaming.api.windowing.time.Time
 
 /**
  * @author: liudw
@@ -34,7 +42,6 @@ object Transform {
 
         mapStream2.print()
 
-        env.execute("------ map ------")
     }
 
 
@@ -43,22 +50,60 @@ object Transform {
      * 根据Key进行分区，是根据key的散列值进行分区的
      */
     def keyByOP(): Unit = {
-        val peoStream = line.map(x => {
+        val sensorStream = line.map(x => {
             val column: Array[String] = x.split(",")
-            People(column(0).toInt, column(1), column(2).toInt)
+            Sensor(column(0).trim, column(1).toLong, column(2).toDouble)
         })
 
-        peoStream.keyBy("id")
-
+        val keyByStream: KeyedStream[Sensor, Tuple] = sensorStream.keyBy(0)
+        val keyType = keyByStream.getKeyType
+        println(keyType)
+        keyByStream.print()
 
     }
 
+
+    def filterOP(): Unit = {
+        val filterStream = line.filter(_.nonEmpty)
+        filterStream.print()
+    }
+
+
+    def windowOP(): Unit = {
+        line.map(
+            data => {
+                val arr = data.split(",")
+                Sensor(arr(0).toString, arr(1).toLong, arr(2).toDouble)
+            }
+        )
+            .map(data => (data.id, data.temperature))
+            .keyBy(_._1)
+            .window(TumblingEventTimeWindows.of(Time.seconds(10)))
+
+    }
+
+
+    def splitOP(): Unit = {
+        line.map(
+            data => {
+                val arr = data.split(",")
+                Sensor(arr(0).toString, arr(1).toLong, arr(2).toDouble)
+            }
+        )
+    }
 
     def main(args: Array[String]): Unit = {
         // mapOP()
+        windowOP()
+        env.execute()
 
     }
-
 }
 
-case class People(id: Int, name: String, age: Int)
+case class Sensor(id: String, timestamp: Long, temperature: Double)
+
+class BoundedOutOfOrdernessGenerator extends AssignerWithPeriodicWatermarks[String] {
+    override def getCurrentWatermark = ???
+
+    override def extractTimestamp(element: String, previousElementTimestamp: Long) = ???
+}
