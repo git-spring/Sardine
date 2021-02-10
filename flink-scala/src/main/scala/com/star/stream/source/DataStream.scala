@@ -27,11 +27,15 @@ object DataStream {
         val inpath = "flink-scala/in/word.txt"
         val stream2 = env.readTextFile(inpath)
 
-        // 3. 从socket中读取 @see {WordCount}
+        /**
+         * 3. 从socket中读取 [[com.star.stream.WordCount]]
+         *
+         * 4. 从外部数据源读取数据(e.g. kafka) [[com.star.stream.source.FlinkKafka]]
+         *
+         * 5. 自定义数据源   [[com.star.stream.source.UDS]]
+         *
+         */
 
-        // 4. 从外部数据源读取数据(e.g. kafka)  @see {FlinkKafka}
-
-        // 5. 自定义数据源   @see {UDS}
 
         stream2.print()
 

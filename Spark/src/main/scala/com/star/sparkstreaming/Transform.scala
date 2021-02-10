@@ -7,7 +7,7 @@ package com.star.sparkstreaming
 
 /**
  *  SparkStreaming 的Transform 操作
- *  @see com.star.sparkstreaming.WindowOperations
+ *      [[com.star.sparkstreaming.WindowOperations]]
  *
  */
 object Transform {
