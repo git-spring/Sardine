@@ -1,5 +1,6 @@
 package com.star.sparkstreaming
 
+import org.apache.hadoop.security.UserGroupInformation
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.spark.SparkConf
@@ -44,7 +45,7 @@ object SparkStreamingkafka {
     // 获取kafka连接时的参数信息
     def getKafkaParams(): Map[String, Object] = {
         var kafkaParams = Map[String, Object](
-            "bootstrap.servers" -> "10.2.111.54:9092",
+            "bootstrap.servers" -> "10.2.98.128:9092",
             "key.deserializer" -> classOf[StringDeserializer],
             "value.deserializer" -> classOf[StringDeserializer],
             "auto.offset.reset" -> "earliest",

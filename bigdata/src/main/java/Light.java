@@ -13,7 +13,7 @@ import java.awt.event.InputEvent;
 import java.util.Random;
 
 /**
- *  长时间无动作，鼠标自动移位
+ *  长时间无动作，鼠标自动点击
  */
 public class Light {
 	public static void main(String[] args) throws AWTException, InterruptedException {
@@ -28,7 +28,7 @@ public class Light {
 					Random random = new Random();
 					int a = 0;
 					robot.delay(3000);
-					robot.mouseMove(1200, 700);
+					robot.mouseMove(1400, 1050);
 					a = Math.abs(random.nextInt()) % 100 + 50;
 					robot.delay(a);
 					robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);

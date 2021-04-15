@@ -1,0 +1,7 @@
+hbase api
+
+hbase conf
+获取连接： Connection conn = ConnectionFactory.createConnection(conf)
+
+Admin admin = conn.getAdmin()
+    Admin
