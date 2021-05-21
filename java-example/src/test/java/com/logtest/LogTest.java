@@ -1,4 +1,4 @@
-package com.log;
+package com.logtest;
 
 import com.star.logging.jul.JULWithProperties;
 

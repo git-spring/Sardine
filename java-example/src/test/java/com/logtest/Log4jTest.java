@@ -1,4 +1,4 @@
-package com.log;
+package com.logtest;
 
 import com.star.logging.log4j.Log4jDemo;
 

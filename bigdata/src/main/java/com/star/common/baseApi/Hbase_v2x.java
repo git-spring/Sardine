@@ -30,7 +30,6 @@ import org.apache.hadoop.security.UserGroupInformation;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 
 /**
  *  Hbase api 基于 hbase 2.x
@@ -38,14 +37,8 @@ import java.util.concurrent.ExecutorService;
 public class Hbase_v2x {
 
 	private static Configuration conf = null;
-	// 创建一个定长线程池，可控制线程最大并发数，超出的线程会在队列中等待。
-	private static ExecutorService executor = null;
 	private static Connection conn = null;
 	private static Admin admin = null;
-
-	public static final String zkServer = "dcdl-dgv-cdh2.localhost.com";
-	public static final String zkPort = "2181";
-	public static final int threadPoolSize = 20;
 
 
 	// 返回 连接对象
@@ -62,14 +55,6 @@ public class Hbase_v2x {
 			conn = ConnectionFactory.createConnection(conf);
 			admin = conn.getAdmin();
 
-			/*
-			conf.set("hbase.zookeeper.quorum", zkServer);
-			conf.set("hbase.zookeeper.property.clientPort", zkPort);
-			//conf.set("hbase.defaults.for.version.skip", "true");
-			executor = Executors.newFixedThreadPool(threadPoolSize);
-			conn = ConnectionFactory.createConnection(conf, executor);
-			*/
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -82,7 +67,6 @@ public class Hbase_v2x {
 			if (admin.tableExists(TableName.valueOf(tableName))) {
 				return;
 			}
-			// TODO: 2021-3-26 Caused by: org.apache.hadoop.hbase.ipc.RemoteWithExtrasException(org.apache.hadoop.hbase.TableNotFoundException): org.apache.hadoop.hbase.TableNotFoundException: test1
 			// 如果表不存在则创建
 			TableName name = TableName.valueOf(tableName);
 			// 表描述器
@@ -150,7 +134,7 @@ public class Hbase_v2x {
 
 	/**
 	 *  写入多条数据
-	 *
+	 *  todo : 使用batch
 	 * @param tableName    表名
 	 */
 	public void putRow(String tableName) {
@@ -175,6 +159,7 @@ public class Hbase_v2x {
 			puts.add(put4);
 
 			table.put(puts);
+			// table.batch();   https://blog.csdn.net/kongxx/article/details/79201836
 			table.close();
 		} catch (IOException e) {
 			e.printStackTrace();
