@@ -55,7 +55,7 @@ object Transform {
                 content.map((_, " 分区号: " + num))
             }
         }
-        tupleRdd.collect().foreach(println)
+        tupleRdd.foreach(println)
     }
 
 
@@ -67,7 +67,7 @@ object Transform {
         val sc = createSC()
         val listRdd = sc.makeRDD(Array(List(1, 2), List(3, 4), List(5, 6)))
         val tupleRdd = listRdd.flatMap(it => it)
-        tupleRdd.collect().foreach(println)
+        tupleRdd.foreach(println)
     }
 
     /**
@@ -78,7 +78,7 @@ object Transform {
         val sc = createSC()
         val listRdd = sc.parallelize(1 to 20, 4)
         val glomRdd = listRdd.glom()
-        glomRdd.collect().foreach(
+        glomRdd.foreach(
             array => {
                 println(array.mkString(","))
             })
@@ -92,7 +92,7 @@ object Transform {
         val sc = createSC()
         val listRdd = sc.makeRDD(List(("a", 1), ("b", 2), ("b", 3), ("a", 4), ("c", 1), ("b", 2), ("c", 3), ("d", 4)))
         val groupByRdd = listRdd.groupBy(i => i._2)
-        groupByRdd.collect().foreach(println)
+        groupByRdd.foreach(println)
 
     }
 
@@ -104,7 +104,7 @@ object Transform {
         val sc = createSC()
         val listRdd = sc.makeRDD(List(1, 2, 3, 4, 5, 6, 7, 8))
         val filterRdd = listRdd.filter(x => x % 2 == 0)
-        filterRdd.collect().foreach(println)
+        filterRdd.foreach(println)
     }
 
     /**
@@ -127,7 +127,7 @@ object Transform {
         // distinct 算子的原理是执行了以下操作
         // val distinctRdd = listRdd.map(x => (x, null)).reduceByKey((x, y) => x, numPartitions).map(_._1)
         // val distinctRdd = listRdd.map((_,1)).reduceByKey(_+_).map(_._1)
-        distinctRdd.collect().foreach(println)
+        distinctRdd.foreach(println)
     }
 
     /**
@@ -170,7 +170,7 @@ object Transform {
         val sc = createSC()
         val listRdd = sc.makeRDD(List(1, 4, 6, 8, 23, 2, 5, 78))
         val sortByRdd = listRdd.sortBy(x => x) // x => x  匿名函数
-        sortByRdd.collect().foreach(println)
+        sortByRdd.foreach(println)
     }
 
     /**
@@ -182,7 +182,7 @@ object Transform {
         val rdd1 = sc.makeRDD(1 to 10)
         val rdd2 = sc.makeRDD(5 to 12)
         val intersectionRdd = rdd1.intersection(rdd2)
-        intersectionRdd.collect().foreach(println)
+        intersectionRdd.foreach(println)
     }
 
     /**
@@ -194,7 +194,7 @@ object Transform {
         val rdd1 = sc.makeRDD(1 to 10)
         val rdd2 = sc.makeRDD(5 to 12)
         val unionRdd = rdd1.union(rdd2)
-        unionRdd.collect().foreach(println)
+        unionRdd.foreach(println)
     }
 
     /**
@@ -206,7 +206,7 @@ object Transform {
         val rdd1 = sc.makeRDD(1 to 10)
         val rdd2 = sc.makeRDD(5 to 12)
         val subtractRdd = rdd1.subtract(rdd2)
-        subtractRdd.collect().foreach(println)
+        subtractRdd.foreach(println)
     }
 
     /**
@@ -218,7 +218,7 @@ object Transform {
         val rdd1 = sc.makeRDD(1 to 4)
         val rdd2 = sc.makeRDD(5 to 9)
         val cartesianRdd = rdd1.cartesian(rdd2)
-        cartesianRdd.collect().foreach(println)
+        cartesianRdd.foreach(println)
     }
 
     /**
@@ -230,7 +230,7 @@ object Transform {
         val rdd1 = sc.makeRDD(List(1, 2, 3), 3)
         val rdd2 = sc.makeRDD(List("a", "b", "c"), 3)
         val zipRdd = rdd1.zip(rdd2)
-        zipRdd.collect().foreach(println)
+        zipRdd.foreach(println)
     }
 
     /**
@@ -243,7 +243,7 @@ object Transform {
         val rdd1 = sc.makeRDD(List((1, "a"), (2, "b"), (3, "c"), (4, "d")))
         // 使用自定义分区器分区
         val partitionByRdd = rdd1.partitionBy(new MyPartitioner(4))
-        partitionByRdd.glom().collect().foreach(
+        partitionByRdd.glom().foreach(
             array => {
                 println(array.mkString(","))
             })
@@ -257,7 +257,7 @@ object Transform {
         val sc = createSC()
         val listRdd = sc.makeRDD(List(("a", 1), ("b", 2), ("b", 3), ("a", 4), ("c", 1), ("b", 2), ("c", 3), ("d", 4)))
         val groupByRdd = listRdd.groupByKey() // 把相同key的value放到一起
-        groupByRdd.collect().foreach(println)
+        groupByRdd.foreach(println)
         /*
         结果:
             (a,CompactBuffer(1, 4))
@@ -285,7 +285,7 @@ object Transform {
         val sc = createSC()
         val listRdd = sc.makeRDD(List(("a", 1), ("b", 2), ("b", 3), ("a", 4), ("c", 1), ("b", 2), ("c", 3), ("d", 4)))
         val reduceByKeyRdd = listRdd.reduceByKey(_ + _) // _+_ 匿名函数 把具有相同key的value进行相加
-        reduceByKeyRdd.collect().foreach(println)
+        reduceByKeyRdd.foreach(println)
         /*
         结果:
             (a,5)
@@ -309,7 +309,7 @@ object Transform {
         // 查看一下各分区的数量
 
         val glomRdd = listRdd.glom()
-        print(glomRdd.collect().foreach {
+        print(glomRdd.foreach {
             array =>
                 println(array.mkString(","))
         })
@@ -318,7 +318,7 @@ object Transform {
         // 第一个函数分区内进行的操作,第二个匿名函数分区间进行的操作
         // 分区内第一次进行操作会和初始值进行比较
         val aggregateByKeyRdd = listRdd.aggregateByKey(7)(math.max(_, _), _ + _)
-        aggregateByKeyRdd.collect().foreach(println)
+        aggregateByKeyRdd.foreach(println)
         /*
         分区数据:
             (a,3),(a,2),(c,4)
@@ -346,7 +346,7 @@ object Transform {
         val sc = createSC()
         val listRdd = sc.makeRDD(Array(("a", 3), ("a", 2), ("c", 4), ("b", 3), ("c", 6), ("c", 8)), 2)
         val foldByKeyRdd = listRdd.foldByKey(1)(_ + _)
-        foldByKeyRdd.collect() foreach (println)
+        foldByKeyRdd foreach (println)
     }
 
     def combineByKeyDemo(): Unit = {
@@ -364,7 +364,7 @@ object Transform {
         //val sortByKeyRdd = listRdd.sortByKey()    // 正序
         val sortByKeyRdd = listRdd.sortByKey(false) // 反序
 
-        sortByKeyRdd.collect().foreach(println)
+        sortByKeyRdd.foreach(println)
     }
 
     /**
@@ -375,7 +375,7 @@ object Transform {
         val sc = createSC()
         val listRdd = sc.makeRDD(Array((1, "a"), (1, "d"), (2, "b"), (3, "c")))
         val mapValueRdd = listRdd.mapValues(_ + "b")
-        mapValueRdd.collect().foreach(println)
+        mapValueRdd.foreach(println)
 
     }
 
@@ -390,7 +390,7 @@ object Transform {
         val rdd2 = sc.makeRDD(Array((1, 10), (1, 20), (2, 30), (3, 40)))
         val joinRdd = rdd1.join(rdd2)
 
-        joinRdd.collect().foreach(println)
+        joinRdd.foreach(println)
     }
 
     def cogroupDemo(): Unit = {
@@ -399,12 +399,12 @@ object Transform {
         val rdd2 = sc.makeRDD(Array((1, 10), (1, 20), (2, 30), (3, 40)))
         val cogroupRdd = rdd1.cogroup(rdd2)
 
-        cogroupRdd.collect().foreach(println)
+        cogroupRdd.foreach(println)
     }
 
 
     def main(args: Array[String]): Unit = {
-        groupByKeyDemo()
+        foldByKeyDemo()
     }
 }
 

@@ -134,7 +134,7 @@ public class Hbase_v2x {
 
 	/**
 	 *  写入多条数据
-	 *  todo : 使用batch
+	 *
 	 * @param tableName    表名
 	 */
 	public void putRow(String tableName) {

@@ -18,7 +18,7 @@ object WordCount {
         val words = lines.flatMap(_.split(" "))
         val word = words.map((_, 1))
         val key = word.reduceByKey(_ + _)
-        val res = key.collect().foreach(println)
+        val res = key.foreach(println)
         print(res)
 
     }
