@@ -21,5 +21,8 @@ object WordCount {
         val res = key.foreach(println)
         print(res)
 
+        println(key.dependencies)
+        println(key.toDebugString)
+
     }
 }

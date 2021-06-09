@@ -12,16 +12,16 @@ import org.apache.spark.{SparkConf, SparkContext}
 object CheckPoint {
 
     /**
-     * spark 中的cache和persist都可以用来缓存,cache底层调用的就是cache
+     * spark 中的 cache 和 persist 都可以用来缓存,cache 底层调用的就是 persist
      *
      * 缓存时都可以指定缓存级别,(默认是在内存中储存一份)
-     * 调用缓存方法时不会立即缓存,触发后面的action算子时才会进行缓存
+     * 调用缓存方法时不会立即缓存,触发后面的 action 算子时才会进行缓存
+     * 不会切断依赖关系
      *
      * checkpoint:
      *      检查点只能保存在磁盘(一般是HDFS)上,使用前需要设置检查点目录,也需要行动算子才会执行检查点,
      *      设置检查点后会切断RDD的依赖关系,
-     *      而缓存不会切断依赖关系,就算缓存到磁盘上,也仍然会保留原有的RDD依赖
-     *      如果数据量过大还是建议使用checkpoint
+     *      如果数据量过大还是建议使用 checkpoint
      *
      */
 

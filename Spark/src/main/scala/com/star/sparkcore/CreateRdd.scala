@@ -1,5 +1,6 @@
 package com.star.sparkcore
 
+import org.apache.spark.rdd.RDD
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**
@@ -23,7 +24,9 @@ object CreateRdd {
         sc.parallelize(List(1,2,3,4,5),3)
 
         // 3.从外部存储中创建RDD
-        sc.textFile("SparkAPI/in")
+        sc.textFile("Spark/in")
+        // 可以显示数据来自哪个文件
+        sc.wholeTextFiles("Spark/in")
 
     }
 }
