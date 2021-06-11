@@ -16,13 +16,13 @@ object CreateDF {
         import spark.implicits._
 
         // 通过读取文件生成(json、csv、...)
-        val jsonDF: DataFrame = spark.read.json("SparkAPI/data/emp.json")
-        val csvDF: DataFrame = spark.read.csv("SparkAPI/data/users.csv")
-        val textDF = spark.read.text("SparkAPI/data/users.text")
-        val parquetDF = spark.read.parquet("SparkAPI/data/users.parquet")
-        val orcDF = spark.read.orc("SparkAPI/data/users.orc")
+        val jsonDF: DataFrame = spark.read.json("Spark/data/emp.json")
+        val csvDF: DataFrame = spark.read.csv("Spark/data/users.csv")
+        val textDF = spark.read.text("Spark/data/users.text")
+        val parquetDF = spark.read.parquet("Spark/data/users.parquet")
+        val orcDF = spark.read.orc("Spark/data/users.orc")
         // 上面读取文件的方法  都是如下的调用方式
-        val formatDF = spark.read.format("json").load("SparkAPI/data/emp.json")
+        val formatDF = spark.read.format("json").load("Spark/data/emp.json")
 
 
         // 从hive中查询得到
@@ -46,6 +46,3 @@ object CreateDF {
         spark.stop()
     }
 }
-
-
-case class Person(id: Int, name: String, age: Int)

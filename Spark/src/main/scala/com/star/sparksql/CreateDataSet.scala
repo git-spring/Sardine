@@ -17,8 +17,8 @@ object CreateDataSet {
         val spark = SparkSession.builder.master("local").getOrCreate()
         import spark.implicits._
 
-        val users: Dataset[String] = spark.read.textFile("SparkAPI/data/users.csv")
-        val jsonDF: Dataset[Person] = spark.read.json("SparkAPI/data/person.json").as[Person]
+        val users: Dataset[String] = spark.read.textFile("Spark/data/users.csv")
+        val jsonDF: Dataset[Person] = spark.read.json("Spark/data/person.json").as[Person]
 
         val rangeSet: Dataset[lang.Long] = spark.range(1 ,10)
 
@@ -36,4 +36,5 @@ object CreateDataSet {
     }
 }
 
+case class Person(id: Long, name: String, age: Long)
 case class Human(name:String,age:Int)

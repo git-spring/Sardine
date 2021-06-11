@@ -22,7 +22,7 @@ object WordCount {
             .reduceByKey(_ + _)
 
         // 监控文件夹(不常用)
-        val textFileStream: DStream[String] = ssc.textFileStream("SparkAPI/in")
+        val textFileStream: DStream[String] = ssc.textFileStream("Spark/in")
 
         res.print()
 

@@ -1,7 +1,7 @@
 package com.star.sparkcore
 
 import org.apache.spark.rdd.RDD
-import org.apache.spark.{Partitioner, SparkConf, SparkContext}
+import org.apache.spark.{SparkConf, SparkContext}
 
 
 /**
@@ -263,7 +263,7 @@ object Transform {
 
         val rdd1 = sc.makeRDD(List((1, "a"), (2, "b"), (3, "c"), (4, "d")))
         // 使用自定义分区器分区
-        val partitionByRdd = rdd1.partitionBy(new MyPartitioner(4))
+        val partitionByRdd = rdd1.partitionBy(new SelfDefinePartitioner(3))
         partitionByRdd.glom().foreach(
             array => {
                 println(array.mkString(","))
@@ -431,19 +431,7 @@ object Transform {
 
 
     def main(args: Array[String]): Unit = {
-        groupByKeyDemo()
+        partitionByDemo()
         sc.stop()
-    }
-}
-
-
-// 分区器
-class MyPartitioner(partitions: Int) extends Partitioner {
-    override def numPartitions: Int = {
-        partitions
-    }
-
-    override def getPartition(key: Any): Int = {
-        1
     }
 }

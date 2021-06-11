@@ -21,7 +21,7 @@ import org.apache.spark.streaming.{Seconds, StreamingContext}
  *
  *
  */
-object Status {
+object State {
     def main(args: Array[String]): Unit = {
         val conf = new SparkConf().setMaster("local[*]").setAppName("status")
         val ssc = new StreamingContext(conf, Seconds(2))
