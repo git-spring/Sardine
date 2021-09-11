@@ -3,9 +3,9 @@ package com.star.sparkcore
 import org.apache.spark.Partitioner
 
 /**
- * @author: liudw
- * @date: 2021-6-9 10:21
- */
+  * @author: liudw
+  * @date: 2021-6-9 10:21
+  */
 
 // 自定义分区器
 class SelfDefinePartitioner(partitions: Int) extends Partitioner {

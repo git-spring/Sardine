@@ -6,9 +6,9 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 
 /**
- * @author: liudw
- * @date: 2021-1-5 15:45
- */
+  * @author: liudw
+  * @date: 2021-1-5 15:45
+  */
 
 // RDD 、DataFrame 、 DataSet 的相互转换
 object DataSetTransform {
@@ -41,18 +41,18 @@ object DataSetTransform {
     }
 
     /**
-     * @see https://blog.csdn.net/wx1528159409/article/details/88407237
-     *
-     * 1. RDD是最基础的数据类型，在向上转换时，需要添加必要的信息；
-     *      转DataFrame：需要添加结构信息并加上列名  toDF("id","name","age")
-     *      转DataSet：需要添加类型信息，写样例类       map（x=>{User(x)}）.toDS()
-     * 2. DataFrame在向上转换时，本身包含结构信息，只添加类型信息即可；
-     *      转DataSet：先写样例类，as[User]
-     *      转RDD：df.rdd
-     * 3. DataSet作为最上层的抽象，转换其他对象直接可以往下转；
-     *      转DataFrame：ds.toDF
-     *      转RDD：ds.rdd
-     */
+      * @see https://blog.csdn.net/wx1528159409/article/details/88407237
+      *
+      * 1. RDD是最基础的数据类型，在向上转换时，需要添加必要的信息；
+      *      转DataFrame：需要添加结构信息并加上列名  toDF("id","name","age")
+      *      转DataSet：需要添加类型信息，写样例类       map（x=>{User(x)}）.toDS()
+      * 2. DataFrame在向上转换时，本身包含结构信息，只添加类型信息即可；
+      *      转DataSet：先写样例类，as[User]
+      *      转RDD：df.rdd
+      * 3. DataSet作为最上层的抽象，转换其他对象直接可以往下转；
+      *      转DataFrame：ds.toDF
+      *      转RDD：ds.rdd
+      */
 }
 
 

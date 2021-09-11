@@ -14,21 +14,21 @@ import org.apache.flink.util.Collector
 import scala.collection.mutable.ArrayBuffer
 
 /**
- * @author: liudw
- * @date: 2021-2-4 9:47
- */
+  * @author: liudw
+  * @date: 2021-2-4 9:47
+  */
 
 /**
- * flink 的水位线
- *
- * 输入数据格式：
- * nc -lk 9999
- * 0001,153835988200
- * 0001,153835988600
- * 0001,153835989200
- * 0001,153835988600
- *
- */
+  * flink 的水位线
+  *
+  * 输入数据格式：
+  * nc -lk 9999
+  * 0001,153835988200
+  * 0001,153835988600
+  * 0001,153835989200
+  * 0001,153835988600
+  *
+  */
 object StreaingWaterMark {
     def main(args: Array[String]): Unit = {
 
@@ -37,7 +37,7 @@ object StreaingWaterMark {
 
         // 处理数据
         val inputMap = text.flatMap(_.split(" "))
-            .map((_, 1))
+                .map((_, 1))
 
         // 抽取timestamp, 生成watermark
         val watermarkStream = inputMap.assignTimestampsAndWatermarks(new AssignerWithPeriodicWatermarks[(String, Int)] {
@@ -55,29 +55,29 @@ object StreaingWaterMark {
             override def extractTimestamp(element: (String, Int), previousElementTimestamp: Long) = {
                 val timestamp = element._2
                 currentMaxTimestamp = Math.max(timestamp, currentMaxTimestamp)
-//                println("key:" + element._1 + ",eventtime:[" + element._2 + "|" + sdf.format(element._1) + "],currentMaxTimestamp:[" + currentMaxTimestamp + "|" +
-//                    sdf.format(currentMaxTimestamp) + "],watermark:[" + getCurrentWatermark().getTimestamp() + "|" + sdf.format(getCurrentWatermark().getTimestamp()) + "]")
-println("key:"+element._1)
+                //                println("key:" + element._1 + ",eventtime:[" + element._2 + "|" + sdf.format(element._1) + "],currentMaxTimestamp:[" + currentMaxTimestamp + "|" +
+                //                    sdf.format(currentMaxTimestamp) + "],watermark:[" + getCurrentWatermark().getTimestamp() + "|" + sdf.format(getCurrentWatermark().getTimestamp()) + "]")
+                println("key:" + element._1)
                 timestamp
             }
         })
         val windowStream = watermarkStream.keyBy(0)
-            .window(TumblingEventTimeWindows.of(Time.seconds(3))) //
-            .apply((x, y, z, j: Collector[String]) => {
-                val key = x.toString
-                var arr = new ArrayBuffer[Long]()
-                val it = z.iterator
+                .window(TumblingEventTimeWindows.of(Time.seconds(3))) //
+                .apply((x, y, z, j: Collector[String]) => {
+            val key = x.toString
+            var arr = new ArrayBuffer[Long]()
+            val it = z.iterator
 
-                while (it.hasNext) {
-                    val next = it.next()
-                    arr += next._2
-                }
-                import java.text.SimpleDateFormat
-                val sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
-                val result = key + "," + arr.size + "," + sdf.format(arr(0)) + "," + sdf.format(arr(arr.size - 1)) + "," + sdf.format(y.getStart) + "," + sdf.format(y.getEnd)
+            while (it.hasNext) {
+                val next = it.next()
+                arr += next._2
+            }
+            import java.text.SimpleDateFormat
+            val sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS")
+            val result = key + "," + arr.size + "," + sdf.format(arr(0)) + "," + sdf.format(arr(arr.size - 1)) + "," + sdf.format(y.getStart) + "," + sdf.format(y.getEnd)
 
-                j.collect(result)
-            })
+            j.collect(result)
+        })
 
         windowStream.print()
 

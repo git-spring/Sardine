@@ -8,9 +8,9 @@ import org.apache.flink.table.descriptors.{FileSystem, OldCsv, Schema}
 
 
 /**
- * @author: liudw
- * @date: 2021-3-1 9:35
- */
+  * @author: liudw
+  * @date: 2021-3-1 9:35
+  */
 
 // flink table 操作
 object Example1 {
@@ -21,16 +21,16 @@ object Example1 {
 
         val tableEnv = StreamTableEnvironment.create(env)
         tableEnv.connect(new FileSystem().path(filePath))
-            .withFormat(new OldCsv())
-            .withSchema(new Schema()
-                .field("id", DataTypes.STRING())
-                .field("timestamp", DataTypes.BIGINT())
-                .field("temperature", DataTypes.DOUBLE())
-            )
+                .withFormat(new OldCsv())
+                .withSchema(new Schema()
+                        .field("id", DataTypes.STRING())
+                        .field("timestamp", DataTypes.BIGINT())
+                        .field("temperature", DataTypes.DOUBLE())
+                )
                 .createTemporaryTable("inputTable")
 
         val inputTable = tableEnv.from("inputTable")
-        inputTable.toAppendStream[(String,Long,Double)].print()
+        inputTable.toAppendStream[(String, Long, Double)].print()
 
 
         env.execute("table api")

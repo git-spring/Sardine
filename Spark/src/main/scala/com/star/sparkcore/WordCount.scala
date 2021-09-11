@@ -3,9 +3,9 @@ package com.star.sparkcore
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**
- * @author: liudw
- * @date: 2020-12-22 17:21
- */
+  * @author: liudw
+  * @date: 2020-12-22 17:21
+  */
 object WordCount {
     def main(args: Array[String]): Unit = {
 

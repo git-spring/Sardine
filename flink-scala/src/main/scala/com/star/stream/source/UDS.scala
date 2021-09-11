@@ -3,10 +3,11 @@ package com.star.stream.source
 import org.apache.flink.streaming.api.functions.source.SourceFunction
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 import org.apache.flink.api.scala._
+
 /**
- * @author: liudw
- * @date: 2021-1-26 16:45
- */
+  * @author: liudw
+  * @date: 2021-1-26 16:45
+  */
 
 // flink 自定义数据源
 // 自定义Source常用于本地测试、调试代码,基本不用于生产

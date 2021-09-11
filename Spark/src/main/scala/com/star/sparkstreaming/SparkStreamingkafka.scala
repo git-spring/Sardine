@@ -9,9 +9,9 @@ import org.apache.spark.streaming.kafka010.{ConsumerStrategies, KafkaUtils, Loca
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 
 /**
- * @author: liudw
- * @date: 2021-1-11 14:46
- */
+  * @author: liudw
+  * @date: 2021-1-11 14:46
+  */
 
 // SparkStreaming 与Kakfa 整合使用
 // 需要导入 spark-streaming-kafka-0-10_2.11 jar
@@ -19,8 +19,8 @@ object SparkStreamingkafka {
 
     def main(args: Array[String]): Unit = {
         val conf = new SparkConf().setMaster("local[*]")
-            .setAppName("SparkStreaming-Kafka")
-            .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+                .setAppName("SparkStreaming-Kafka")
+                .set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
         // conf.registerKryoClasses(Array(
         // classOf[Array[org.apache.kafka.clients.consumer.ConsumerRecord[String,String]]]
         // ))

@@ -8,7 +8,7 @@ import org.junit.Test;
 public class RedisTest {
 
     @Test
-    public void opStringTest(){
+    public void opStringTest() {
         RedisAPI.opString();
     }
 }

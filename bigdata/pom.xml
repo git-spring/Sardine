@@ -2,146 +2,146 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<parent>
-		<artifactId>Sardine</artifactId>
-		<groupId>com.gro</groupId>
-		<version>1.0-SNAPSHOT</version>
-	</parent>
-	<modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>Sardine</artifactId>
+        <groupId>com.gro</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-	<artifactId>bigdata</artifactId>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>8</source>
-					<target>8</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <artifactId>bigdata</artifactId>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-	<properties>
-		<!--hbase 1.x-->
-		<hbase.version.1x>2.1.0</hbase.version.1x>
-		<!--hbase 2.x-->
-		<hbase.version.2x>2.2.5</hbase.version.2x>
-		<java.version>1.8</java.version>
-		<hive.version>2.3.6</hive.version>
-		<jedis.version>2.9.0</jedis.version>
-		<hadoop.version>3.0.0</hadoop.version>
-	</properties>
+    <properties>
+        <!--hbase 1.x-->
+        <hbase.version.1x>2.1.0</hbase.version.1x>
+        <!--hbase 2.x-->
+        <hbase.version.2x>2.2.5</hbase.version.2x>
+        <java.version>1.8</java.version>
+        <hive.version>2.3.6</hive.version>
+        <jedis.version>2.9.0</jedis.version>
+        <hadoop.version>3.0.0</hadoop.version>
+    </properties>
 
-	<dependencies>
-		<!--HDFS-->
-		<dependency>
-			<groupId>org.apache.hadoop</groupId>
-			<artifactId>hadoop-common</artifactId>
-			<version>${hadoop.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.hadoop</groupId>
-			<artifactId>hadoop-hdfs</artifactId>
-			<version>${hadoop.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.hadoop</groupId>
-			<artifactId>hadoop-client</artifactId>
-			<version>${hadoop.version}</version>
-		</dependency>
+    <dependencies>
+        <!--HDFS-->
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-common</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-hdfs</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-client</artifactId>
+            <version>${hadoop.version}</version>
+        </dependency>
 
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>RELEASE</version>
-		</dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+        </dependency>
 
-		<!-- hbase connect-->
-		<dependency>
-			<groupId>org.apache.hbase</groupId>
-			<artifactId>hbase-client</artifactId>
-			<version>${hbase.version.1x}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.hbase</groupId>
-			<artifactId>hbase-server</artifactId>
-			<version>${hbase.version.1x}</version>
-		</dependency>
+        <!-- hbase connect-->
+        <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-client</artifactId>
+            <version>${hbase.version.1x}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-server</artifactId>
+            <version>${hbase.version.1x}</version>
+        </dependency>
 
-		<!-- 使用bulkload 需要的包, mapreduce 包单独提取出来了-->
-		<dependency>
-			<groupId>org.apache.hbase</groupId>
-			<artifactId>hbase-mapreduce</artifactId>
-			<version>2.2.5</version>
-		</dependency>
+        <!-- 使用bulkload 需要的包, mapreduce 包单独提取出来了-->
+        <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-mapreduce</artifactId>
+            <version>2.2.5</version>
+        </dependency>
 
-		<!--hive connect-->
-		<dependency>
-			<groupId>org.apache.hive</groupId>
-			<artifactId>hive-jdbc</artifactId>
-			<version>${hive.version}</version>
-		</dependency>
+        <!--hive connect-->
+        <dependency>
+            <groupId>org.apache.hive</groupId>
+            <artifactId>hive-jdbc</artifactId>
+            <version>${hive.version}</version>
+        </dependency>
 
-		<!--redis connect-->
-		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
-			<version>${jedis.version}</version>
-		</dependency>
+        <!--redis connect-->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
-		<dependency>
-			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka-clients</artifactId>
-			<version>2.2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka_2.12</artifactId>
-			<version>2.2.0</version>
-		</dependency>
-		<!--高级api使用-->
-		<dependency>
-			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka_2.11</artifactId>
-			<version>0.10.1.1</version>
-		</dependency>
-	</dependencies>
+        <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.12</artifactId>
+            <version>2.2.0</version>
+        </dependency>
+        <!--高级api使用-->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.11</artifactId>
+            <version>0.10.1.1</version>
+        </dependency>
+    </dependencies>
 
 
-	<!--    <build>-->
-	<!--        <plugins>-->
-	<!--            <plugin>-->
-	<!--                <groupId>org.apache.maven.plugins</groupId>-->
-	<!--                <artifactId>maven-assembly-plugin</artifactId>-->
-	<!--                <version>2.6</version>-->
-	<!--                <configuration>-->
-	<!--                    <descriptorRefs>-->
-	<!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
-	<!--                    </descriptorRefs>-->
-	<!--                </configuration>-->
-	<!--                <executions>-->
-	<!--                    <execution>-->
-	<!--                        <id>make-assembly</id>-->
-	<!--                        <phase>package</phase>-->
-	<!--                        <goals>-->
-	<!--                            <goal>single</goal>-->
-	<!--                        </goals>-->
-	<!--                    </execution>-->
-	<!--                </executions>-->
-	<!--            </plugin>-->
+    <!--    <build>-->
+    <!--        <plugins>-->
+    <!--            <plugin>-->
+    <!--                <groupId>org.apache.maven.plugins</groupId>-->
+    <!--                <artifactId>maven-assembly-plugin</artifactId>-->
+    <!--                <version>2.6</version>-->
+    <!--                <configuration>-->
+    <!--                    <descriptorRefs>-->
+    <!--                        <descriptorRef>jar-with-dependencies</descriptorRef>-->
+    <!--                    </descriptorRefs>-->
+    <!--                </configuration>-->
+    <!--                <executions>-->
+    <!--                    <execution>-->
+    <!--                        <id>make-assembly</id>-->
+    <!--                        <phase>package</phase>-->
+    <!--                        <goals>-->
+    <!--                            <goal>single</goal>-->
+    <!--                        </goals>-->
+    <!--                    </execution>-->
+    <!--                </executions>-->
+    <!--            </plugin>-->
 
-	<!--            <plugin>-->
-	<!--                <groupId>org.apache.maven.plugins</groupId>-->
-	<!--                <artifactId>maven-compiler-plugin</artifactId>-->
-	<!--                <configuration>-->
-	<!--                    <encoding>UTF-8</encoding>-->
-	<!--                    <source>8</source>-->
-	<!--                    <target>8</target>-->
-	<!--                </configuration>-->
-	<!--            </plugin>-->
-	<!--        </plugins>-->
-	<!--    </build>-->
+    <!--            <plugin>-->
+    <!--                <groupId>org.apache.maven.plugins</groupId>-->
+    <!--                <artifactId>maven-compiler-plugin</artifactId>-->
+    <!--                <configuration>-->
+    <!--                    <encoding>UTF-8</encoding>-->
+    <!--                    <source>8</source>-->
+    <!--                    <target>8</target>-->
+    <!--                </configuration>-->
+    <!--            </plugin>-->
+    <!--        </plugins>-->
+    <!--    </build>-->
 </project>

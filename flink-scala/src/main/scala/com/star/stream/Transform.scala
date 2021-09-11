@@ -12,9 +12,9 @@ import org.apache.flink.streaming.api.windowing.assigners.TumblingEventTimeWindo
 import org.apache.flink.streaming.api.windowing.time.Time
 
 /**
- * @author: liudw
- * @date: 2021-1-29 14:51
- */
+  * @author: liudw
+  * @date: 2021-1-29 14:51
+  */
 
 // flink 的算子
 object Transform {
@@ -23,10 +23,10 @@ object Transform {
     val line = env.readTextFile("flink-scala/in/word.txt")
 
     /**
-     * map :
-     * 把每个元素变换后,映射成另一个元素
-     *
-     */
+      * map :
+      * 把每个元素变换后,映射成另一个元素
+      *
+      */
     def mapOP(): Unit = {
 
 
@@ -46,9 +46,9 @@ object Transform {
 
 
     /**
-     * keyBy
-     * 根据Key进行分区，是根据key的散列值进行分区的
-     */
+      * keyBy
+      * 根据Key进行分区，是根据key的散列值进行分区的
+      */
     def keyByOP(): Unit = {
         val sensorStream = line.map(x => {
             val column: Array[String] = x.split(",")
@@ -76,9 +76,9 @@ object Transform {
                 Sensor(arr(0).toString, arr(1).toLong, arr(2).toDouble)
             }
         )
-            .map(data => (data.id, data.temperature))
-            .keyBy(_._1)
-            .window(TumblingEventTimeWindows.of(Time.seconds(10)))
+                .map(data => (data.id, data.temperature))
+                .keyBy(_._1)
+                .window(TumblingEventTimeWindows.of(Time.seconds(10)))
 
     }
 

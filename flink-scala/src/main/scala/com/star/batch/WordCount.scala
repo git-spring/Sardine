@@ -4,9 +4,9 @@ import org.apache.flink.api.scala.ExecutionEnvironment
 
 
 /**
- * @author: liudw
- * @date: 2021-1-25 10:00
- */
+  * @author: liudw
+  * @date: 2021-1-25 10:00
+  */
 
 // flink 批处理
 object WordCount {
@@ -20,11 +20,11 @@ object WordCount {
         import org.apache.flink.api.scala._
         // 统计数据
         line.flatMap(_.toLowerCase.split(" "))
-            .filter(_.nonEmpty)
-            .map((_, 1))
-            .groupBy(0)
-            .sum(1)
-            .print()
+                .filter(_.nonEmpty)
+                .map((_, 1))
+                .groupBy(0)
+                .sum(1)
+                .print()
 
     }
 }

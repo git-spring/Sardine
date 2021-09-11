@@ -3,9 +3,9 @@ package com.star.sparksql
 import org.apache.spark.sql.{DataFrame, Dataset, SparkSession}
 
 /**
- * @author: liudw
- * @date: 2021-1-5 13:50
- */
+  * @author: liudw
+  * @date: 2021-1-5 13:50
+  */
 
 // 创建DataFrame
 object CreateDF {
@@ -31,7 +31,7 @@ object CreateDF {
         val hiveDF: DataFrame = spark.sql("select * from user")
         hiveDF.show()
 
-        val hum: Seq[Human] = Seq(Human("ls",20))
+        val hum: Seq[Human] = Seq(Human("ls", 20))
         val humDS: DataFrame = hum.toDF()
 
         // 通过序列创建

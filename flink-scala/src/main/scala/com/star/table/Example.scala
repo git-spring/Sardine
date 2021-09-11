@@ -9,9 +9,9 @@ import org.apache.flink.table.descriptors.ConnectorDescriptor
 
 
 /**
- * @author: liudw
- * @date: 2021-3-1 9:35
- */
+  * @author: liudw
+  * @date: 2021-3-1 9:35
+  */
 
 // flink table 操作
 object Example {
@@ -35,11 +35,11 @@ object Example {
 
         // 调用table api
         val resultTable = dataTable
-            .select("id,temperature")
-            .filter("id=='sensor_10'")
+                .select("id,temperature")
+                .filter("id=='sensor_10'")
 
         // 直接用sql实现
-        tableEnv.createTemporaryView("dataTable",dataTable)
+        tableEnv.createTemporaryView("dataTable", dataTable)
         val sql = "select id,temperature from dataTable where id ='sensor_10'"
         val sqlResultTable = tableEnv.sqlQuery(sql)
 

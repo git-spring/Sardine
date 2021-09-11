@@ -8,9 +8,9 @@ import org.apache.flink.table.descriptors.{FileSystem, OldCsv, Schema}
 
 
 /**
- * @author: liudw
- * @date: 2021-3-1 9:35
- */
+  * @author: liudw
+  * @date: 2021-3-1 9:35
+  */
 
 // flink table api & sql  -- kafka
 object Example2 {
@@ -21,9 +21,6 @@ object Example2 {
         val filePath = "flink-scala/in/word.txt"
 
         val tableEnv = StreamTableEnvironment.create(env)
-
-
-
 
 
         env.execute("table api")

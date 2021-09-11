@@ -8,9 +8,9 @@ import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer011
 import org.apache.flink.api.scala._
 
 /**
- * @author: liudw
- * @date: 2021-1-26 15:33
- */
+  * @author: liudw
+  * @date: 2021-1-26 15:33
+  */
 
 // flink 连接kafka使用
 object FlinkKafka {
@@ -20,12 +20,12 @@ object FlinkKafka {
 
         // kafka 配置信息
         val prop = new Properties()
-        prop.setProperty("bootstrap.servers","10.2.111.54:9092")
-        prop.setProperty("auto.offset.reset","latest")
-        prop.setProperty("group.id","console-consumer-17399")
+        prop.setProperty("bootstrap.servers", "10.2.111.54:9092")
+        prop.setProperty("auto.offset.reset", "latest")
+        prop.setProperty("group.id", "console-consumer-17399")
 
         // 添加一个数据源(kafka)
-        val stream = env.addSource(new FlinkKafkaConsumer011[String]("test4",new SimpleStringSchema(),prop))
+        val stream = env.addSource(new FlinkKafkaConsumer011[String]("test4", new SimpleStringSchema(), prop))
 
         stream.print()
 

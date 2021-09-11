@@ -7,16 +7,16 @@ import org.junit.Test;
  */
 public class HbaseTest {
 
-	Hbase_v2x hbase = new Hbase_v2x();
+    Hbase_v2x hbase = new Hbase_v2x();
 
-	@Test
-	public void getValueByRowkey() {
+    @Test
+    public void getValueByRowkey() {
 
-		hbase.getAllCellByRowkey("stockdealrecords", "03 1418903 2021");
-	}
+        hbase.getAllCellByRowkey("stockdealrecords", "03 1418903 2021");
+    }
 
-	@Test
-	public void scanTable() {
-		hbase.createTable("t2","f");
-	}
+    @Test
+    public void scanTable() {
+        hbase.createTable("t2", "f");
+    }
 }

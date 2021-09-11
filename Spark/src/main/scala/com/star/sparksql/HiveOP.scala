@@ -5,9 +5,9 @@ import java.io.File
 import org.apache.spark.sql.{SaveMode, SparkSession}
 
 /**
- * @author: liudw
- * @date: 2021-1-8 10:57
- */
+  * @author: liudw
+  * @date: 2021-1-8 10:57
+  */
 
 // SparkSQL 操作 hive,需要引入spark-hive的jar包,并配置好HDFS等环境
 object HiveOP {
@@ -17,16 +17,16 @@ object HiveOP {
         val warehouseLocation = new File("spark-warehouse").getAbsolutePath
 
         val spark = SparkSession
-            .builder
-            // 把代码放到服务器上执行
-            // .master("local[*]")
-            // .appName("Spark Hive Example")
-            .config("spark.sql.warehouse.dir", warehouseLocation)
-            // 开启hive自动分区
-            .config("hive.exec.dynamic.partition", true)
-            .config("hive.exec.dynamic.partition.mode", "nonstrict")
-            .enableHiveSupport()
-            .getOrCreate()
+                .builder
+                // 把代码放到服务器上执行
+                // .master("local[*]")
+                // .appName("Spark Hive Example")
+                .config("spark.sql.warehouse.dir", warehouseLocation)
+                // 开启hive自动分区
+                .config("hive.exec.dynamic.partition", true)
+                .config("hive.exec.dynamic.partition.mode", "nonstrict")
+                .enableHiveSupport()
+                .getOrCreate()
 
         import spark.implicits._
         import spark.sql

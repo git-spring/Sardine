@@ -5,9 +5,9 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 
 /**
- * @author: liudw
- * @date: 2020-12-23 15:31
- */
+  * @author: liudw
+  * @date: 2020-12-23 15:31
+  */
 
 // Spark 的转换算子
 object Transform {
@@ -17,9 +17,9 @@ object Transform {
     val sc = new SparkContext(conf)
 
     /**
-     * map算子  map(func)
-     * 把RDD中的每一个元素都作用于func函数上
-     */
+      * map算子  map(func)
+      * 把RDD中的每一个元素都作用于func函数上
+      */
     def mapDemo(): Unit = {
         val dataRdd = sc.makeRDD(Range(1, 10))
         val res = dataRdd.map(_ * 2)
@@ -27,10 +27,10 @@ object Transform {
     }
 
     /**
-     * mapPartitions
-     * 与map类似,但是是运行在RDD的每个分区上
-     * 对内存要求较高
-     */
+      * mapPartitions
+      * 与map类似,但是是运行在RDD的每个分区上
+      * 对内存要求较高
+      */
     def mapPartitionsDemo(): Unit = {
 
         val dataRdd = sc.makeRDD(Range(1, 10), 2)
@@ -43,10 +43,10 @@ object Transform {
     }
 
     /**
-     * mapPartitionsWithIndex
-     * 与mapPartitions类似,但是多提供了一个integer型的参数表示分区号
-     * 可以对不同分区进行不同的操作
-     */
+      * mapPartitionsWithIndex
+      * 与mapPartitions类似,但是多提供了一个integer型的参数表示分区号
+      * 可以对不同分区进行不同的操作
+      */
     def mapPartitionsWithIndexDemo(): Unit = {
 
         val listRdd = sc.makeRDD(Range(1, 5))
@@ -64,9 +64,9 @@ object Transform {
 
 
     /**
-     * flatMap
-     * 将原RDD中的数据扁平化处理
-     */
+      * flatMap
+      * 将原RDD中的数据扁平化处理
+      */
     def flatMapDemo(): Unit = {
 
         val listRdd = sc.makeRDD(Array(List(1, 2), List(3, 4), List(5, 6)))
@@ -75,9 +75,9 @@ object Transform {
     }
 
     /**
-     * glom
-     * 把每一个分区中的元素转换成一个数组
-     */
+      * glom
+      * 把每一个分区中的元素转换成一个数组
+      */
     def glomDemo(): Unit = {
 
         val listRdd = sc.parallelize(1 to 20, 4)
@@ -89,9 +89,9 @@ object Transform {
     }
 
     /**
-     * groupBy
-     * groupBy算子接收一个函数,这个函数返回的值作为key,然后通过这个key来对里面的元素进行分组
-     */
+      * groupBy
+      * groupBy算子接收一个函数,这个函数返回的值作为key,然后通过这个key来对里面的元素进行分组
+      */
     def groupByDemo(): Unit = {
 
         val listRdd = sc.makeRDD(List(("a", 1), ("b", 2), ("b", 3), ("a", 4), ("c", 1), ("b", 2), ("c", 3), ("d", 4)))
@@ -101,9 +101,9 @@ object Transform {
     }
 
     /**
-     * filter
-     * 按照指定规则进行过滤
-     */
+      * filter
+      * 按照指定规则进行过滤
+      */
     def filterDemo(): Unit = {
 
         val listRdd = sc.makeRDD(List(1, 2, 3, 4, 5, 6, 7, 8))
@@ -112,9 +112,9 @@ object Transform {
     }
 
     /**
-     * sample
-     * 抽取RDD中的元素，返回一个新的RDD
-     */
+      * sample
+      * 抽取RDD中的元素，返回一个新的RDD
+      */
     def sampleDemo(): Unit = {
 
         val listRdd = sc.makeRDD(List(1, 2, 3, 4, 5, 6, 7, 8))
@@ -128,9 +128,9 @@ object Transform {
     }
 
     /**
-     * distinct
-     * 去除重复的数据
-     */
+      * distinct
+      * 去除重复的数据
+      */
     def distinctDemo(): Unit = {
 
         val listRdd = sc.makeRDD(List(1, 2, 3, 4, 2, 3, 3, 2, 7, 8, 9))
@@ -143,10 +143,10 @@ object Transform {
     }
 
     /**
-     * coalesce
-     * 减少分区数量,实质是进行分区的合并, 不可以增加分区数量
-     * 如果指定shuffle = true ,会对数据进行shuffle, 这个时候可以增加分区数量
-     */
+      * coalesce
+      * 减少分区数量,实质是进行分区的合并, 不可以增加分区数量
+      * 如果指定shuffle = true ,会对数据进行shuffle, 这个时候可以增加分区数量
+      */
     def coalesceDemo(): Unit = {
 
         val listRdd = sc.makeRDD(1 to 10, 3)
@@ -162,10 +162,10 @@ object Transform {
     }
 
     /**
-     * repartition
-     * repartition 用于改变分区的数量,可以增加或减少分区
-     * repartition 调用的就是coalesce, 默认是shuffle=true,会对数据进行重新分区,有shuffle过程
-     */
+      * repartition
+      * repartition 用于改变分区的数量,可以增加或减少分区
+      * repartition 调用的就是coalesce, 默认是shuffle=true,会对数据进行重新分区,有shuffle过程
+      */
     def repartitionDemo(): Unit = {
 
         val listRdd = sc.makeRDD(1 to 10, 2)
@@ -180,24 +180,24 @@ object Transform {
     }
 
     /**
-     * sortBy
-     * 按给定的函数进行排序
-     */
+      * sortBy
+      * 按给定的函数进行排序
+      */
     def sortByDemo(): Unit = {
 
         val wordcount = sc.textFile("Spark/in")
-            .flatMap(_.split(" "))
-            .map((_, 1))
-            .reduceByKey(_ + _)
+                .flatMap(_.split(" "))
+                .map((_, 1))
+                .reduceByKey(_ + _)
         // 对结果进行排序,wordcount 后按出现次数排序
         val sortByRdd = wordcount.sortBy(_._1.charAt(0))
         sortByRdd.foreach(println)
     }
 
     /**
-     * intersection
-     * 对两个RDD求交集,并返回一个新的RDD
-     */
+      * intersection
+      * 对两个RDD求交集,并返回一个新的RDD
+      */
     def intersectionDemo(): Unit = {
 
         val rdd1 = sc.makeRDD(1 to 10)
@@ -207,9 +207,9 @@ object Transform {
     }
 
     /**
-     * union
-     * 对两个RDD求并集,并返回一个新的RDD
-     */
+      * union
+      * 对两个RDD求并集,并返回一个新的RDD
+      */
     def unionDemo(): Unit = {
 
         val rdd1 = sc.makeRDD(1 to 10)
@@ -219,9 +219,9 @@ object Transform {
     }
 
     /**
-     * subtract
-     * 对两个RDD求差集,并返回一个新的RDD
-     */
+      * subtract
+      * 对两个RDD求差集,并返回一个新的RDD
+      */
     def subtractDemo(): Unit = {
 
         val rdd1 = sc.makeRDD(1 to 10)
@@ -231,9 +231,9 @@ object Transform {
     }
 
     /**
-     * cartesian
-     * 对两个RDD求笛卡尔积,并返回一个新的RDD
-     */
+      * cartesian
+      * 对两个RDD求笛卡尔积,并返回一个新的RDD
+      */
     def cartesianDemo(): Unit = {
 
         val rdd1 = sc.makeRDD(1 to 4)
@@ -243,9 +243,9 @@ object Transform {
     }
 
     /**
-     * zip
-     * 把两个RDD中的元素组合成一个k-v对,两个RDD 中的分区数量、元素数量要一样
-     */
+      * zip
+      * 把两个RDD中的元素组合成一个k-v对,两个RDD 中的分区数量、元素数量要一样
+      */
     def zipDemo(): Unit = {
 
         val rdd1 = sc.makeRDD(List(1, 2, 3), 3)
@@ -255,10 +255,10 @@ object Transform {
     }
 
     /**
-     * partitionBy
-     * 根据分区器对数据进行分区
-     * 默认的分区器是HashPartitioner
-     */
+      * partitionBy
+      * 根据分区器对数据进行分区
+      * 默认的分区器是HashPartitioner
+      */
     def partitionByDemo(): Unit = {
 
         val rdd1 = sc.makeRDD(List((1, "a"), (2, "b"), (3, "c"), (4, "d")))
@@ -271,9 +271,9 @@ object Transform {
     }
 
     /**
-     * groupByKey
-     * 对具有相同key的value进行分组,只能对k-v对进行操作
-     */
+      * groupByKey
+      * 对具有相同key的value进行分组,只能对k-v对进行操作
+      */
     def groupByKeyDemo(): Unit = {
 
         val listRdd = sc.makeRDD(List(("a", 1), ("b", 2), ("b", 3), ("a", 4), ("c", 1), ("b", 2), ("c", 3), ("d", 4)))
@@ -289,26 +289,26 @@ object Transform {
     }
 
     /**
-     * reduceByKey和groupByKey的区别
-     *      1. groupByKey只能分组,不能聚合
-     *      2. reduceByKey 可以分组,也可以聚合
-     *      3. groupByKey().map() = reduceByKey
-     *
-     * reduceByKey 会进行预聚合.然后再进行网络传输,性能较好
-     * groupByKey 不会进行预聚合
-     */
+      * reduceByKey和groupByKey的区别
+      *      1. groupByKey只能分组,不能聚合
+      *      2. reduceByKey 可以分组,也可以聚合
+      *      3. groupByKey().map() = reduceByKey
+      *
+      * reduceByKey 会进行预聚合.然后再进行网络传输,性能较好
+      * groupByKey 不会进行预聚合
+      */
 
     /**
-     * reduceByKey
-     * 使用 函数合并具有相同键的值
-     */
+      * reduceByKey
+      * 使用 函数合并具有相同键的值
+      */
     def reduceByKeyDemo(): Unit = {
 
         val listRdd = sc.makeRDD(List(("a", 1), ("b", 2), ("b", 3), ("a", 4), ("c", 1), ("b", 2), ("c", 3), ("d", 4)))
         //        val reduceByKeyRdd = listRdd.reduceByKey(_ + _) // _+_ 匿名函数 把具有相同key的value进行相加
         val reduceByKeyRdd = listRdd.reduceByKey(
             (x, y) => {
-//                println(s"x=${x},y=${y}")
+                //                println(s"x=${x},y=${y}")
                 x + y
             }
         )
@@ -323,12 +323,12 @@ object Transform {
     }
 
     /**
-     * 需求：根据key取出各分区内的value最大值，分区间求和
-     *
-     * aggregateByKey
-     * 根据key对value进行运算,分区内和分区间可以指定不同的运算规则,
-     * 可以给定一个初始值,初始值只在第一次运算的时候生效
-     */
+      * 需求：根据key取出各分区内的value最大值，分区间求和
+      *
+      * aggregateByKey
+      * 根据key对value进行运算,分区内和分区间可以指定不同的运算规则,
+      * 可以给定一个初始值,初始值只在第一次运算的时候生效
+      */
     def aggregateByKeyDemo(): Unit = {
 
         val listRdd = sc.makeRDD(Array(("a", 3), ("a", 2), ("c", 4), ("b", 3), ("c", 6), ("c", 8)), 2)
@@ -362,13 +362,13 @@ object Transform {
     }
 
     /**
-     * foldByKey
-     * foldByKey 是对aggregateByKey的一种简化
-     * aggregateByKey 分区内和分区间可以有不同的运算规则
-     * foldByKey 分区内和分区间的运算规则是一样的,只需要传一个函数就可以了
-     *
-     * 可以给定一个初始值,初始值只在第一次运算的时候生效
-     */
+      * foldByKey
+      * foldByKey 是对aggregateByKey的一种简化
+      * aggregateByKey 分区内和分区间可以有不同的运算规则
+      * foldByKey 分区内和分区间的运算规则是一样的,只需要传一个函数就可以了
+      *
+      * 可以给定一个初始值,初始值只在第一次运算的时候生效
+      */
     def foldByKeyDemo(): Unit = {
 
         val listRdd = sc.makeRDD(Array(("a", 3), ("a", 2), ("c", 4), ("b", 3), ("c", 6), ("c", 8)), 2)
@@ -381,10 +381,10 @@ object Transform {
     }
 
     /**
-     * sortByKey
-     * 按key进行排序
-     * 与value的值无关
-     */
+      * sortByKey
+      * 按key进行排序
+      * 与value的值无关
+      */
     def sortByKeyDemo(): Unit = {
 
         val listRdd = sc.makeRDD(Array(("a", 3), ("a", 2), ("c", 4), ("b", 3), ("c", 6), ("c", 8)), 2)
@@ -395,9 +395,9 @@ object Transform {
     }
 
     /**
-     * mapValue
-     * 对k-v对的每一个value做处理
-     */
+      * mapValue
+      * 对k-v对的每一个value做处理
+      */
     def mapValueDemo(): Unit = {
 
         val listRdd = sc.makeRDD(Array((1, "a"), (1, "d"), (2, "b"), (3, "c")))
@@ -407,10 +407,10 @@ object Transform {
     }
 
     /**
-     * join
-     * 把两个RDD中相同key进行关联,相同key的value会生成元组
-     *
-     */
+      * join
+      * 把两个RDD中相同key进行关联,相同key的value会生成元组
+      *
+      */
     def joinDemo(): Unit = {
 
         val rdd1 = sc.makeRDD(Array((1, "a"), (1, "d"), (2, "b"), (3, "c"), (4, "d")))

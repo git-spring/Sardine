@@ -4,9 +4,9 @@ import org.apache.flink.api.scala._
 import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
 
 /**
- * @author: liudw
- * @date: 2021-1-26 15:23
- */
+  * @author: liudw
+  * @date: 2021-1-26 15:23
+  */
 
 // flink 流处理读取数据的方式
 object DataStream {
@@ -28,13 +28,13 @@ object DataStream {
         val stream2 = env.readTextFile(inpath)
 
         /**
-         * 3. 从socket中读取 [[com.star.stream.WordCount]]
-         *
-         * 4. 从外部数据源读取数据(e.g. kafka) [[com.star.stream.source.FlinkKafka]]
-         *
-         * 5. 自定义数据源   [[com.star.stream.source.UDS]]
-         *
-         */
+          * 3. 从socket中读取 [[com.star.stream.WordCount]]
+          *
+          * 4. 从外部数据源读取数据(e.g. kafka) [[com.star.stream.source.FlinkKafka]]
+          *
+          * 5. 自定义数据源   [[com.star.stream.source.UDS]]
+          *
+          */
 
 
         stream2.print()
