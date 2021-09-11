@@ -13,7 +13,6 @@
         <module>Spark</module>
         <module>flink-scala</module>
         <module>java-example</module>
-        <module>SpringBoot</module>
     </modules>
 
     <!--	外部依赖放在dependencyManagement 中方便统一管理,各子项目按需取用-->
