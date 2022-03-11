@@ -1,0 +1,96 @@
+2022-02-08 14:26:01  INFO ReaderWriter:31 : 文件路径 ： java-example/file/poem.txt
+2022-02-08 14:26:01  INFO ReaderWriter:32 : 开始读取数据
+2022-02-08 14:26:01  INFO ReaderWriter:37 : ***************读取内容***************
+2022-02-08 14:26:01  INFO ReaderWriter:41 : 下终南山过斛斯山人宿置酒
+2022-02-08 14:26:01  INFO ReaderWriter:41 :                 李白
+2022-02-08 14:26:01  INFO ReaderWriter:41 : 暮从碧山下，山月随人归。
+2022-02-08 14:26:01  INFO ReaderWriter:41 : 却顾所来径，苍苍横翠微。
+2022-02-08 14:26:01  INFO ReaderWriter:41 : 相携及田家，童稚开荆扉。
+2022-02-08 14:26:01  INFO ReaderWriter:41 : 绿竹入幽径，青萝拂行衣。
+2022-02-08 14:26:01  INFO ReaderWriter:41 : 欢言得所憩，美酒聊共挥。
+2022-02-08 14:26:01  INFO ReaderWriter:41 : 长歌吟松风，曲尽星河稀。
+2022-02-08 14:26:01  INFO ReaderWriter:41 : 我醉君复乐，陶然共忘机。
+2022-02-08 14:26:01  INFO ReaderWriter:43 : ***************读取完毕***************
+2022-02-08 14:33:27  INFO ReaderWriter:71 : 文件路径 ： java-example/file/output.txt
+2022-02-08 14:33:27  INFO ReaderWriter:72 : ***************开始写入***************
+2022-02-08 14:33:27  INFO ReaderWriter:82 : ***************写入完成***************
+2022-02-08 14:34:08  INFO ReaderWriter:71 : 文件路径 ： java-example/file/output.txt
+2022-02-08 14:34:08  INFO ReaderWriter:72 : ***************开始写入***************
+2022-02-08 14:34:08  INFO ReaderWriter:82 : ***************写入完成***************
+2022-02-08 15:10:37  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 15:10:37  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 15:10:37  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 15:32:44  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 15:32:44  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 15:32:44  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 15:33:42  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 15:33:42  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 15:33:42  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 15:33:50  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 15:33:50  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 15:33:50  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 15:36:37  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 15:36:37  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 15:36:37  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 15:37:50  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 15:37:50  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 15:37:50  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 15:38:35  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 15:38:35  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 15:38:35  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 15:39:42  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 15:39:42  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 15:39:42  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 15:54:58  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 15:54:58  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 15:54:58  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 15:55:39  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 15:55:39  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 15:55:39  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 15:55:52  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 15:55:52  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 15:55:52  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 15:56:26  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 15:56:26  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 15:56:26  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 15:56:35  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 15:56:35  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 15:56:35  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 15:57:05  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 15:57:05  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 15:57:05  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 15:57:16  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 15:57:16  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 15:57:16  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 16:06:40  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 16:06:40  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 16:06:40  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 16:06:48  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 16:06:48  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 16:06:48  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 16:07:01  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 16:07:01  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 16:07:01  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 16:08:54  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 16:08:54  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 16:08:54  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 16:11:30  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 16:16:03  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 16:16:03  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 16:16:32  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 16:16:32  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 16:16:32  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 16:29:26  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 16:29:26  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 16:29:26  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 16:38:50  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 16:38:50  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 16:38:55  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 16:38:55  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 16:38:55  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 16:39:49  INFO ReaderWriter:73 : 文件路径 ： java-example/file/output.txt
+2022-02-08 16:39:49  INFO ReaderWriter:74 : ***************开始写入***************
+2022-02-08 16:39:49  INFO ReaderWriter:84 : ***************写入完成***************
+2022-02-08 17:29:24  INFO ReaderWriter:72 : 文件路径 ： java-example/file/output.txt
+2022-02-08 17:29:24  INFO ReaderWriter:73 : ***************开始写入***************
+2022-02-08 17:29:24  INFO ReaderWriter:83 : ***************写入完成***************
