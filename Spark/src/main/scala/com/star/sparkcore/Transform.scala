@@ -263,7 +263,7 @@ object Transform {
 
         val rdd1 = sc.makeRDD(List((1, "a"), (2, "b"), (3, "c"), (4, "d")))
         // 使用自定义分区器分区
-        val partitionByRdd = rdd1.partitionBy(new SelfDefinePartitioner(3))
+        val partitionByRdd = rdd1.partitionBy(new UserDefinePartitioner(3))
         partitionByRdd.glom().foreach(
             array => {
                 println(array.mkString(","))

@@ -8,7 +8,7 @@ import org.apache.spark.Partitioner
   */
 
 // 自定义分区器
-class SelfDefinePartitioner(partitions: Int) extends Partitioner {
+class UserDefinePartitioner(partitions: Int) extends Partitioner {
     // 分区数量
     override def numPartitions = partitions
 

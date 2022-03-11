@@ -2,6 +2,8 @@ package com.star.sparkcore
 
 import org.apache.spark.{SparkConf, SparkContext}
 
+import java.util.Properties
+
 /**
   * @author: liudw
   * @date: 2020-12-22 17:21
@@ -15,9 +17,9 @@ object WordCount {
         val sc = new SparkContext(conf)
 
         val lines = sc.textFile("Spark/in")
-        val words = lines.flatMap(_.split(" "))
-        val word = words.map((_, 1))
-        val key = word.reduceByKey(_ + _)
+        val words = lines.flatMap(_.split(" "))  // x=>x.split(" ")
+        val word = words.map((_, 1)) // x=>(x, 1)
+        val key = word.reduceByKey(_+_) // (x,y)=>(x+y)
         val res = key.foreach(println)
         print(res)
 

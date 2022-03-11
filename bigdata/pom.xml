@@ -84,6 +84,13 @@
             <version>${hive.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.hive</groupId>
+            <artifactId>hive-exec</artifactId>
+            <version>${hive.version}</version>
+        </dependency>
+
+
         <!--redis connect-->
         <dependency>
             <groupId>redis.clients</groupId>
