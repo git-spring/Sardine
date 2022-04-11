@@ -29,7 +29,7 @@
         <!--hbase 2.x-->
         <hbase.version.2x>2.2.5</hbase.version.2x>
         <java.version>1.8</java.version>
-        <hive.version>2.3.6</hive.version>
+        <hive.version>2.1.1</hive.version>
         <jedis.version>2.9.0</jedis.version>
         <hadoop.version>3.0.0</hadoop.version>
     </properties>
@@ -89,7 +89,11 @@
             <artifactId>hive-exec</artifactId>
             <version>${hive.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.hive</groupId>
+            <artifactId>hive-serde</artifactId>
+            <version>2.1.1</version>
+        </dependency>
 
         <!--redis connect-->
         <dependency>

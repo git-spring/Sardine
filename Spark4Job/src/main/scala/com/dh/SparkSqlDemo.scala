@@ -1,16 +1,10 @@
-package com.star.sparksql
+package com.dh
 
 import java.io.File
 
-import org.apache.spark.sql.{DataFrame, SaveMode, SparkSession}
+import org.apache.spark.sql.{DataFrame, SparkSession}
 
-/**
-  * @author: liudw
-  * @date: 2021-1-8 10:57
-  */
-
-// SparkSQL 操作 hive,需要引入spark-hive的jar包,并配置好HDFS等环境
-object HiveOP {
+object SparkSqlDemo {
     def main(args: Array[String]): Unit = {
 
         // warehouseLocation points to the default location for managed databases and tables
@@ -19,8 +13,8 @@ object HiveOP {
         val spark = SparkSession
                 .builder
                 // 把代码放到服务器上执行
-                .master("local[*]")
-                .appName("Spark Hive Example")
+                //.master("local[*]")
+                //.appName("Spark Hive Example")
                 //.config("spark.sql.warehouse.dir", warehouseLocation)
                 // 开启hive自动分区
                 .config("hive.exec.dynamic.partition", true)
@@ -39,4 +33,6 @@ object HiveOP {
         spark.sql("insert into table default.test values('1','zs')")
         //hiveTable.write.insertInto("xxx")
     }
+
+
 }

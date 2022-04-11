@@ -18,9 +18,9 @@ public class HiveAPI {
     private static PreparedStatement ps = null;
 
     public static final String driverName = "org.apache.hive.jdbc.HiveDriver";   // 此Class 位于 hive-jdbc的jar包下//org.apache.hive.jdbc.HiveDriver
-    public static final String url = "jdbc:hive2://192.168.56.101:10000/test0315";
-    public static final String userName = "root";
-    public static final String password = "123456";
+    public static final String url = "jdbc:hive2://10.248.107.51:10000/dm_dhyw";
+    public static final String userName = "ods";
+    public static final String password = "cci@Dh0901";
 
     static {
         try {
