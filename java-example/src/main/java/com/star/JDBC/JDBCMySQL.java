@@ -1,6 +1,9 @@
 package com.star.JDBC;
 
 
+import com.star.logging.log4j.Log4jDemo;
+import org.apache.log4j.Logger;
+
 import java.sql.*;
 
 /**
@@ -10,39 +13,144 @@ import java.sql.*;
 
 public class JDBCMySQL {
 
+    static Logger logger = Logger.getLogger(JDBCMySQL.class);
+
+    // 获取数据库连接
+    static Connection conn = ConnectionUtils.getMysqlConnection();
+
     // 使用jdbc 连接MySQL
     public static void jdbcConnectMysqlTest() {
-
+        logger.info("使用JDBC连接MySQL数据库");
+        // 编写sql
+        String sql = "select * from student where sno >= ?;";
         try {
-            //1.加载驱动
-            Class.forName("com.mysql.jdbc.Driver");
-            // 2.获得连接
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sql50_1", "root", "123456");
-            // 3.基本操作：执行SQL
-            // 3.1获得执行SQL语句的对象
-            Statement statement = conn.createStatement();
-            // 3.2编写SQL语句:
-            String sql = "select * from course;";
-            // 3.3执行SQL:
-            ResultSet rs = statement.executeQuery(sql);
-            // 3.4遍历结果集:
+            // 预编译SQL:
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            // 设置参数
+            pstmt.setString(1, "100");
+            // 执行sql
+            ResultSet rs = pstmt.executeQuery();
+            // 遍历结果集:
             while (rs.next()) {
-                System.out.print(rs.getInt("cno") + " ");
-                System.out.print(rs.getString("cname") + " ");
-                System.out.print(rs.getString("tno") + " ");
+                System.out.print(rs.getInt("sno") + " ");
+                System.out.print(rs.getString("sname") + " ");
+                System.out.print(rs.getString("ssex") + " ");
                 System.out.println();
             }
-            // 4.释放资源
+            // 释放资源
             rs.close();
-            statement.close();
+            pstmt.close();
             conn.close();
-
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        }
+    }
+
+
+    public static void insertTable() {
+        logger.info("JDBC 批量向MySQL写入数据");
+        try {
+            conn.setAutoCommit(false);   // 关闭自动commit
+            PreparedStatement pstm = conn.prepareStatement("insert into  sql50_1.test values (?,?,?)");
+            Long time1 = System.currentTimeMillis();
+            for (int i = 1; i <= 10000; i++) {
+                pstm.setInt(1, i);
+                pstm.setString(2, "孙悟空" + String.valueOf(i));
+                pstm.setInt(3, i);
+                pstm.addBatch();
+            }
+            Long time2 = System.currentTimeMillis();
+            pstm.executeBatch();
+            conn.commit();
+            logger.info("写入成功!");
+            Long time3 = System.currentTimeMillis();
+            System.out.println(time2 - time1);
+            System.out.println(time3 - time2);
+            System.out.println(time3 - time1);
+        } catch (SQLException e) {
+            logger.error("写入失败...", e);
+        }
+    }
+
+    /**
+     * 获取表名
+     */
+    public static void jdbcGetTableInfo() {
+        logger.info("JDBC 获取表名");
+        try {
+            DatabaseMetaData metaData = conn.getMetaData();
+            // "%" 表示所有的
+            ResultSet rs = metaData.getTables(null, "%", "%", new String[]{"TABLE"});
+            while (rs.next()) {
+                // 获取所有的表名
+                System.out.println(rs.getString("TABLE_NAME"));  // 获取表名
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
 
+    /**
+     * 获取字段信息
+     * 列的其他描述
+     * TABLE_CAT String => 表类别（可为 null）
+     * TABLE_SCHEM String => 表模式（可为 null）
+     * TABLE_NAME String => 表名称
+     * COLUMN_NAME String => 列名称
+     * DATA_TYPE int => 来自 java.sql.Types 的 SQL 类型
+     * TYPE_NAME String => 数据源依赖的类型名称，对于 UDT，该类型名称是完全限定的
+     * COLUMN_SIZE int => 列的大小。
+     * BUFFER_LENGTH 未被使用。
+     * DECIMAL_DIGITS int => 小数部分的位数。对于 DECIMAL_DIGITS 不适用的数据类型，则返回 Null。
+     * NUM_PREC_RADIX int => 基数（通常为 10 或 2）
+     * NULLABLE int => 是否允许使用 NULL。
+     * columnNoNulls - 可能不允许使用 NULL 值
+     * columnNullable - 明确允许使用 NULL 值
+     * columnNullableUnknown - 不知道是否可使用 null
+     * REMARKS String => 描述列的注释（可为 null）
+     * COLUMN_DEF String => 该列的默认值，当值在单引号内时应被解释为一个字符串（可为 null）
+     * SQL_DATA_TYPE int => 未使用
+     * SQL_DATETIME_SUB int => 未使用
+     * CHAR_OCTET_LENGTH int => 对于 char 类型，该长度是列中的最大字节数
+     * ORDINAL_POSITION int => 表中的列的索引（从 1 开始）
+     * IS_NULLABLE String => ISO 规则用于确定列是否包括 null。
+     * YES --- 如果参数可以包括 NULL
+     * NO --- 如果参数不可以包括 NULL
+     * 空字符串 --- 如果不知道参数是否可以包括 null
+     * SCOPE_CATLOG String => 表的类别，它是引用属性的作用域（如果 DATA_TYPE 不是 REF，则为 null）
+     * SCOPE_SCHEMA String => 表的模式，它是引用属性的作用域（如果 DATA_TYPE 不是 REF，则为 null）
+     * SCOPE_TABLE String => 表名称，它是引用属性的作用域（如果 DATA_TYPE 不是 REF，则为 null）
+     * SOURCE_DATA_TYPE short => 不同类型或用户生成 Ref 类型、来自 java.sql.Types 的 SQL 类型的源类型（如果 DATA_TYPE 不是 DISTINCT 或用户生成的 REF，则为 null）
+     * IS_AUTOINCREMENT String => 指示此列是否自动增加
+     * YES --- 如果该列自动增加
+     * NO --- 如果该列不自动增加
+     * 空字符串 --- 如果不能确定该列是否是自动增加参数
+     * COLUMN_SIZE 列表示给定列的指定列大小。对于数值数据，这是最大精度。对于字符数据，这是字符长度。对于日期时间数据类型，这是 String 表示形式的字符长度（假定允许的最大小数秒组件的精度）。对于二进制数据，这是字节长度。对于 ROWID 数据类型，这是字节长度。对于列大小不适用的数据类型，则返回 Null。
+     * <p>
+     * <p>
+     * 参数：
+     * catalog - 类别名称；它必须与存储在数据库中的类别名称匹配；该参数为 "" 表示获取没有类别的那些描述；为 null 则表示该类别名称不应该用于缩小搜索范围
+     * schemaPattern - 模式名称的模式；它必须与存储在数据库中的模式名称匹配；该参数为 "" 表示获取没有模式的那些描述；为 null 则表示该模式名称不应该用于缩小搜索范围
+     * tableNamePattern - 表名称模式；它必须与存储在数据库中的表名称匹配
+     * columnNamePattern - 列名称模式；它必须与存储在数据库中的列名称匹配
+     */
+    public static void jdbcGetColumnInfo(String TableName) {
+        logger.info("JDBC 表的字段信息");
+        try {
+            DatabaseMetaData metaData = conn.getMetaData();
+            // "%" 表示所有的
+            ResultSet rs = metaData.getColumns(null, "%", TableName, "%");
+            while (rs.next()) {
+                String columnName = rs.getString("COLUMN_NAME"); // 字段名
+                String columnType = rs.getString("TYPE_NAME");   // 字段类型
+                int datasize = rs.getInt("COLUMN_SIZE");         // 字段大小
+                int digits = rs.getInt("DECIMAL_DIGITS");        // 小数部分位数
+                String remarks = rs.getString("REMARKS");        // 是否允许为空
+                System.out.println(columnName + " " + columnType + " " + datasize + " " + digits + " " + remarks);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

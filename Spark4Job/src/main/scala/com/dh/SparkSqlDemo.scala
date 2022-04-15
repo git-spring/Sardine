@@ -2,7 +2,8 @@ package com.dh
 
 import java.io.File
 
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.types.StructType
+import org.apache.spark.sql._
 
 object SparkSqlDemo {
     def main(args: Array[String]): Unit = {
@@ -13,8 +14,8 @@ object SparkSqlDemo {
         val spark = SparkSession
                 .builder
                 // 把代码放到服务器上执行
-                //.master("local[*]")
-                //.appName("Spark Hive Example")
+                .master("local[*]")
+                .appName("Spark Hive Example")
                 //.config("spark.sql.warehouse.dir", warehouseLocation)
                 // 开启hive自动分区
                 .config("hive.exec.dynamic.partition", true)
@@ -26,11 +27,18 @@ object SparkSqlDemo {
         import spark.sql
 
         // 从hive中读取数据
-        val hiveTable: DataFrame = spark.sql("select * from dm_dhyw.dm_yw_alcxjyzbrbb_cartype limit 1")
+        val hiveTable: DataFrame = spark.sql("select * from dm_dhyw.dm_yw_alcxjyzbrbb_cartype limit 3")
         hiveTable.show()
+        val frame: DataFrame = hiveTable.select("statcom","cartypecode","qiandanday")
+        val rows: Array[Row] = frame.collect()
+
+        rows.foreach(println(_))
+
+//val rows: Array[Row] = hiveTable.collect()
+//        print(schema(1))
 
         // SparkSQL 写数据到hive
-        spark.sql("insert into table default.test values('1','zs')")
+        //spark.sql("insert into table default.test values('1','zs')")
         //hiveTable.write.insertInto("xxx")
     }
 
