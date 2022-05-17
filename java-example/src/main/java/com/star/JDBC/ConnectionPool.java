@@ -28,6 +28,7 @@ public class ConnectionPool {
             logger.info("druid 数据库连接池demo");
             // 使用配置文件
             Properties prop = new Properties();
+            // 配置文件路径没找到相对路径
             prop.load(new FileInputStream("E:\\04javaProject\\Sardine\\java-example\\src\\main\\resources\\druid.properties"));
             DataSource dataSource = DruidDataSourceFactory.createDataSource(prop);
             Connection conn = dataSource.getConnection();
