@@ -19,7 +19,7 @@ object Action {
         val listRdd = sc.makeRDD(1 to 5, 1)
         val reduceRdd = listRdd.reduce(
             (x, y) => {
-                x - y
+                x - y      // 1-2-3-4-5=-13
             })
         println(reduceRdd)
     }

@@ -9,6 +9,8 @@ import java.sql.SQLException;
 
 /**
  * @author Spring
+ * @date 2022/5/19 11:24
+ * @describe : JDBC 方式连接 hive
  */
 public class HiveAPI {
 
@@ -32,55 +34,44 @@ public class HiveAPI {
     }
 
     /**
-     * 查询数据
-     *
-     * @param sql
-     * @return 返回结果集
-     */
-    public static ResultSet queryData(String sql) {
-        try {
-            ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            return rs;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * 演示遍历 ResultSet
+     * 获取hive表的字段信息
      *
      * @param sql
      */
-    public static void foreachResultSet(String sql) {
+    public static void getMetadataInfo(String sql) {
         try {
-            ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            ps = conn.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = ps.executeQuery();                      // 获取查询到的数据集
+            ResultSetMetaData metaData = rs.getMetaData();         // 获取元数据对象  从元数据中可以获取其它信息
+            int columnCount = metaData.getColumnCount();           // 获取字段的数量
+            for (int i = 1; i <= columnCount; i++) {
+                String columnLabel = metaData.getColumnName(i);    // 获取字段的名称
+                String columnType = metaData.getColumnTypeName(i); // 获取列的类型
+                if (i == columnCount) {
+                    System.out.println(columnLabel);               // 打印表头
+                } else {
+                    System.out.print(columnLabel + "\t");
+                }
+            }
 
-            //            // 1.
-            //            while (rs.next()){
-            //                // 通过字段名获取对应的值
-            //                String uploader = rs.getString("uploader");
-            //                int videos = rs.getInt("videos");
-            //                int friends = rs.getInt("friends");
-            //                System.out.println(uploader+"\t"+videos+"\t"+friends);
-            //            }
+            //rs.last();                                            // 把指针指向最后一行
+            //int row = rs.getRow();                                // 获取当前行号，可以知道ResultSet中一共有多少行数据
+            //System.out.println("共查出："+row +" 条记录");
+            //rs.first();                                           // 把指针指向第一行
 
-            // 2. 获取元数据  从元数据中可以获取其它信息
-            ResultSetMetaData metaData = rs.getMetaData();
-            // 获取列名称
-            String columnLabel = metaData.getColumnLabel(1);
-            // 获取列的 Class 名称(列的类型)
-            String columnClassName = metaData.getColumnClassName(2);
-            // 获取列数量
-            int columnsCount = metaData.getColumnCount();
-
-            // 3. 动态获取所有数据
-
+            // ------------------------------------------------   // 遍历数据
+            while (rs.next()) {
+                for (int i = 1; i <= columnCount; i++) {
+                    Object object = rs.getObject(i);
+                    if (i == columnCount) {
+                        System.out.println(object);
+                    } else {
+                        System.out.print(object + "\t");
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
 }

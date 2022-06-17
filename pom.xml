@@ -15,6 +15,7 @@
         <module>java-example</module>
         <module>springboot</module>
         <module>Spark4Job</module>
+        <module>ABCDE</module>
     </modules>
 
     <!--	外部依赖放在dependencyManagement 中方便统一管理,各子项目按需取用-->

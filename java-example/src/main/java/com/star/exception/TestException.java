@@ -8,5 +8,18 @@ package com.star.exception;
 
 // 自定义异常
 public class TestException extends Exception {
-// TODO: 2022/4/28  
+// TODO: 2022/4/28
+
+     String msg ;
+
+     public TestException(String msg){
+         this.msg=msg;
+     }
+
+    @Override
+    public String toString() {
+        return "TestException{" +
+                "msg='" + msg + '\'' +
+                '}';
+    }
 }
