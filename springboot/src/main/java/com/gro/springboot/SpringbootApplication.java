@@ -1,7 +1,5 @@
 package com.gro.springboot;
 
-import com.gro.bean.Cat;
-import com.gro.configuration.MyConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
