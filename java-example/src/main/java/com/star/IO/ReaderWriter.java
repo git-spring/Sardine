@@ -91,7 +91,7 @@ public class ReaderWriter {
 
     private static String typeCheck(String type) {
         String newType = null;
-        if (type.toLowerCase().contains("int")) {
+        if (type.toLowerCase().contains("int")||type.toLowerCase().contains("double")) {
             newType = "number";
         } else if (type.toLowerCase().contains("varchar") || type.toLowerCase().contains("char") || type.toLowerCase().equals("date")) {
             newType = type;

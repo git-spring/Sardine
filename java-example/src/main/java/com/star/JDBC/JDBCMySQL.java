@@ -194,15 +194,16 @@ public class JDBCMySQL {
     }
 
     /**
-     *  获取表的索引信息
-     *    主键也是唯一索引
+     * 获取表的索引信息
+     * 主键也是唯一索引
+     *
      * @param tableName
      * @throws SQLException
      */
     public static void getIndexInfo(String tableName) throws SQLException {
         ResultSet indexInfo = metaData.getIndexInfo(conn.getCatalog(), null, tableName, false, false);  // 获取所有的索引
         ResultSet indexInfo1 = metaData.getIndexInfo(conn.getCatalog(), null, tableName, true, false);  // 只获取唯一索引(主键也是唯一索引)
-        while(indexInfo.next()){
+        while (indexInfo.next()) {
             String columnName = indexInfo.getString("COLUMN_NAME");
             System.out.println(columnName);
         }
