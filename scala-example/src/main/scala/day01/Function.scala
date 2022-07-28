@@ -1,9 +1,9 @@
-package day02
+package day01
 
 /**
   * @Date 2022/7/8 20:48
   * @author Spring
-  * @Describe : 
+  * @Describe :
   */
 
 // Scala 函数

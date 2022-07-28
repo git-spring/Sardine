@@ -66,7 +66,7 @@ public class ReaderWriter {
             }
             bw1.append(comments.toUpperCase());
             bw1.flush();
-
+            if(pkString!=null&&pkString!="")    // 如果有主键,则拼接
             pkString = "ALTER TABLE " + tableName + " ADD CONSTRAINT PK_" + name.split("\\.")[0] + "_" + pkString + " PRIMARY KEY (" + pkString + ");\n";
             text = text + pkString;
 
