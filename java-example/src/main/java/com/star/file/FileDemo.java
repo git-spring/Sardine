@@ -71,6 +71,8 @@ public class FileDemo {
         for(String path : fileName){
             System.out.println(path+"\t\t\t"+ new File(path).length());
         }
+
+        // TODO: 2022/7/29 按文件夹汇总
     }
 
 

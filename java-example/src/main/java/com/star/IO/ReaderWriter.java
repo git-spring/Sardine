@@ -34,9 +34,12 @@ public class ReaderWriter {
             String text = "";  // 拼接的字符串
             String line;  // 每次读取到的数据
             while ((line = br.readLine()) != null) {
-
+                if (line.startsWith("DROP TABLE")) {
+                    String tname = line.split(" ")[4].replaceAll("`", "").toUpperCase();
+                    line = "DROP TABLE ODS.RE_"+tname+"\n";
+                }
                 // 处理 create
-                if (line.startsWith("CREATE")) {
+                else if (line.startsWith("CREATE TABLE")) {
                     String[] split = line.split(" ");
                     tableName = "ODS.RE_" + split[2].replaceAll("`", "");
                     line = split[0] + " " + split[1] + " ODS.RE_" + split[2].replaceAll("`", "") + " " + split[4] + "\n";
@@ -59,6 +62,8 @@ public class ReaderWriter {
                     indexString = split[1] + " " + split[3];
                     lidx.add(indexString);
                     line = "";
+                } else if (line.startsWith(") ")) {
+                    line = ");";
                 } else {
                     line = line + "\n";
                 }
@@ -66,8 +71,8 @@ public class ReaderWriter {
             }
             bw1.append(comments.toUpperCase());
             bw1.flush();
-            if(pkString!=null&&pkString!="")    // 如果有主键,则拼接
-            pkString = "ALTER TABLE " + tableName + " ADD CONSTRAINT PK_" + name.split("\\.")[0] + "_" + pkString + " PRIMARY KEY (" + pkString + ");\n";
+            if (pkString != null && pkString != "")    // 如果有主键,则拼接
+                pkString = "ALTER TABLE " + tableName + " ADD CONSTRAINT PK_" + name.split("\\.")[0] + "_" + pkString + " PRIMARY KEY (" + pkString + ");\n";
             text = text + pkString;
 
             // 拼接索引
@@ -91,7 +96,7 @@ public class ReaderWriter {
 
     private static String typeCheck(String type) {
         String newType = null;
-        if (type.toLowerCase().contains("int")||type.toLowerCase().contains("double")) {
+        if (type.toLowerCase().contains("int") || type.toLowerCase().contains("double")) {
             newType = "number";
         } else if (type.toLowerCase().contains("varchar") || type.toLowerCase().contains("char") || type.toLowerCase().equals("date")) {
             newType = type;

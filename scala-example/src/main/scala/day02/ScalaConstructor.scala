@@ -14,10 +14,10 @@ package day02
   */
 object ScalaConstructor {
     def main(args: Array[String]): Unit = {
-        val p1 = new Person("张三", 20)    // 调用主构造器
+        val p1 = new Person("张三", 20) // 调用主构造器
         println(p1)
 
-        val p2 = new Person("East")             // 调用辅助构造器,最终会调用主构造器,完成对象的初始化
+        val p2 = new Person("East") // 调用辅助构造器,最终会调用主构造器,完成对象的初始化
         println(p2)
     }
 
@@ -27,7 +27,7 @@ object ScalaConstructor {
 // 主构造器,直接定义在类后面, 如果不定义,系统会默认定义一个无参主构造器
 // 在类名后面加上private 修饰,可以把主构造器变成私有的,这样就不能直接使用主构造器了,需要通过辅助构造器来初始化对象
 // 主构造器的形参列表不能和辅助构造器的形参列表相同
-class Person ( cname: String, cage: Int) {
+class Person(cname: String, cage: Int) {
     var name: String = cname
     var age: Int = cage
 
@@ -43,7 +43,7 @@ class Person ( cname: String, cage: Int) {
 
     // 辅助构造器可以有多个
     def this(cage: Int) {
-        this("Alice")      // 调用另一个辅助构造器,另一个辅助构造器第一行会调用主构造器
+        this("Alice") // 调用另一个辅助构造器,另一个辅助构造器第一行会调用主构造器
         this.age = cage
     }
 
