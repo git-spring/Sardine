@@ -12,9 +12,9 @@ package day02
 object ApplyDemo {
     def main(args: Array[String]): Unit = {
 
-        val p1 = new Person0929("Alice")
-        val p2 = Person0929("Page")
-        val p3 = Person0929()
+        val p1 = new Person0729("Alice")
+        val p2 = Person0729("Page")
+        val p3 = Person0729()
 
         println("p1.name = " + p1.name) // p1.name = Alice
         println("p2.name = " + p2.name) // p2.name = Page
@@ -22,13 +22,13 @@ object ApplyDemo {
     }
 }
 
-class Person0929(pName: String) {
+class Person0729(pName: String) {
     var name: String = pName
 }
 
 // 在伴生对象中定义apply方法
-object Person0929 {
-    def apply(pName: String): Person0929 = new Person0929(pName)
+object Person0729 {
+    def apply(pName: String): Person0729 = new Person0729(pName)
 
-    def apply(): Person0929 = new Person0929("小明")
+    def apply(): Person0729 = new Person0729("小明")
 }

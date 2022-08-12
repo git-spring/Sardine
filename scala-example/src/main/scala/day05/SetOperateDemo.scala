@@ -15,7 +15,7 @@ import scala.collection.mutable.ArrayBuffer
 // 如果集合中有多个元素,传入的高阶函数也会执行多次
 object SetOperateDemo {
     def main(args: Array[String]): Unit = {
-         foldDemo03()
+        zipDemo()
 
 
     }
@@ -30,8 +30,14 @@ object SetOperateDemo {
 
     // scala flatMap 扁平化
     def flatMapDemo() = {
-        val list = List(1, 2, List(3, 4), Seq(5, 6))
 
+        def upper(str: String): String = {
+            str.toUpperCase
+        }
+
+        val list = List("a", "b","c","defg")
+        val chars: List[Char] = list.flatMap(upper)
+        println(chars)
     }
 
     // scala filter  过滤
@@ -108,6 +114,10 @@ object SetOperateDemo {
         for (item <- res) {
             println(item._1 + " -- " + item._2)
         }
+
+        val arr1 = Array("a","b","c")
+        val arr2 = Array(1,2,3)
+        val res2: Array[(String, Int)] = arr1.zip(arr2)
     }
 
 

@@ -1,9 +1,9 @@
-package day05
+package day01.function
 
 /**
   * @Date 2022/8/10 9:54
   * @author Spring
-  * @Describe : 
+  * @Describe :
   */
 
 // scala 高阶函数
@@ -14,9 +14,9 @@ object HigherOrderFunction {
         println(res)
     }
 
-    def test(f: Double => Double, n: Double) = {
+    def test(func: Double => Double, n: Double) = {
         println("test函数被调用~")
-        f(n)
+        func(n)
     }
 
     // 函数作为参数传递时,会被调用
