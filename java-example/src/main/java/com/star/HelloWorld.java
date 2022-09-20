@@ -1,4 +1,4 @@
-package com.star.day01;
+package com.star;
 
 
 public class HelloWorld {

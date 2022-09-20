@@ -19,11 +19,11 @@ public class FileDemoTest {
 
     @Test
     public void getFileName() {
-        List<String> fileName = f.getFileName("C:\\Users\\Spring\\Desktop\\test");
+        List<String> fileName = f.getFileName("C:\\Users\\Spring\\Desktop\\第二批次\\建表sql");
         Iterator<String> iterator = fileName.iterator();
         while (iterator.hasNext()) {
             String next = iterator.next();
-            System.out.println(next);
+            System.out.println(next.split("\\.")[0]);
         }
     }
 
@@ -33,4 +33,18 @@ public class FileDemoTest {
                 "C:\\Users\\Spring\\Desktop\\oracle\\");
     }
 
+    @Test
+    public void fileSize() {
+        f.getFileSize("E:\\04javaProject\\Sardine\\.git\\objects");
+    }
+
+    @Test
+    public void test(){
+        String s = "varchar";
+        int start = s.indexOf('(');
+        int end = s.indexOf(')');
+
+        String substring = s.substring(s.indexOf('(')+1, s.indexOf(')'));
+        System.out.println(Integer.valueOf(substring)*2);
+    }
 }

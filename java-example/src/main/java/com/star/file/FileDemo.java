@@ -62,13 +62,15 @@ public class FileDemo {
 
     /**
      *  获取目录下文件的大小
-     *   c盘文件好像不能获取
+     *   c盘下 Users, Windows, Program Files, Program Files (x86) 不能读取
+     *   todo 不能直接读取盘符
      * @param directory 目录路径
      */
     public static void getFileSize(String directory){
         //        List<String> fileName = getFileAbsPath("C:\\Users\\Spring\\AppData\\Roaming");
         List<String> fileName = getFileAbsPath(directory);
         for(String path : fileName){
+            //if(new File(path).length()>1000000)
             System.out.println(path+"\t\t\t"+ new File(path).length());
         }
 

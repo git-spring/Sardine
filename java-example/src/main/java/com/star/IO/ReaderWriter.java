@@ -36,7 +36,7 @@ public class ReaderWriter {
             while ((line = br.readLine()) != null) {
                 if (line.startsWith("DROP TABLE")) {
                     String tname = line.split(" ")[4].replaceAll("`", "").toUpperCase();
-                    line = "DROP TABLE ODS.RE_"+tname+"\n";
+                    line = "DROP TABLE ODS.RE_" + tname + "\n";
                 }
                 // 处理 create
                 else if (line.startsWith("CREATE TABLE")) {
@@ -48,7 +48,11 @@ public class ReaderWriter {
                     String columnName = split[0];
                     String columnType = typeCheck(split[1]);
                     String[] split1 = line.split("COMMENT");
-                    line = columnName + " " + columnType + ",\n";
+                    if (columnName.toUpperCase().equals("UPDATE_TIME")) {  // 最后一个字段为update_time ,如果是最后一个则后面不用加 ','号
+                        line = columnName + " " + columnType + "\n";
+                    } else {
+                        line = columnName + " " + columnType + ",\n";
+                    }
 
                     String comments1 = "COMMENT ON COLUMN " + tableName + "." + columnName + " IS " + split1[1].replaceAll(",", "") + ";\n";
                     comments = comments + comments1;
@@ -71,8 +75,9 @@ public class ReaderWriter {
             }
             bw1.append(comments.toUpperCase());
             bw1.flush();
-            if (pkString != null && pkString != "")    // 如果有主键,则拼接
-                pkString = "ALTER TABLE " + tableName + " ADD CONSTRAINT PK_" + name.split("\\.")[0] + "_" + pkString + " PRIMARY KEY (" + pkString + ");\n";
+            if (pkString != null && pkString != "") {    // 如果有主键,则拼接
+                pkString = "ALTER TABLE " + tableName + " ADD CONSTRAINT PK_" + name.split("\\.")[0] + " PRIMARY KEY (" + pkString + ");\n";
+            }
             text = text + pkString;
 
             // 拼接索引
@@ -96,14 +101,22 @@ public class ReaderWriter {
 
     private static String typeCheck(String type) {
         String newType = null;
-        if (type.toLowerCase().contains("int") || type.toLowerCase().contains("double")) {
+        if (type.toLowerCase().contains("int")
+                || type.toLowerCase().contains("double")
+                || type.toLowerCase().contains("bigint")
+                ||type.toLowerCase().contains("decimal") ) {
             newType = "number";
-        } else if (type.toLowerCase().contains("varchar") || type.toLowerCase().contains("char") || type.toLowerCase().equals("date")) {
+        } else if (type.toLowerCase().contains("varchar")) {   // varchar 变为varchar2 ,长度*2
+            // 变更后的长度
+            int length = Integer.valueOf(type.substring(type.indexOf('(') + 1, type.indexOf(')'))) * 2;
+            if(length>=4000){   // oracle 中 varchar2 最大长度为4000
+                length=4000;
+            }
+            newType = "varchar2(" + length + ")";
+        } else if (type.toLowerCase().contains("char") || type.toLowerCase().equals("date")) {
             newType = type;
         } else if (type.toLowerCase().contains("datetime") || type.toLowerCase().contains("timestamp")) {
             newType = "date";
-        } else if (type.toLowerCase().contains("decimal")) {
-            newType = "number";
         }
         return newType;
     }
