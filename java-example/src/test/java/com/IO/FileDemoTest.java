@@ -1,7 +1,7 @@
 package com.IO;
 
-import com.star.IO.ReaderWriter;
-import com.star.file.FileDemo;
+import com.star.IO_.ReaderWriter;
+import com.star.file_.FileDemo;
 import org.junit.Test;
 
 import java.util.Iterator;
@@ -40,7 +40,7 @@ public class FileDemoTest {
 
     @Test
     public void test(){
-        String s = "varchar";
+        String s = "varchar(1)";
         int start = s.indexOf('(');
         int end = s.indexOf(')');
 

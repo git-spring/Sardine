@@ -1,6 +1,5 @@
-package com.star.JDBC;
+package com.star.JDBC_;
 
-import com.star.logging.log4j.Log4jDemo;
 import com.star.properties.DynamicLoadProperties;
 import org.apache.log4j.Logger;
 

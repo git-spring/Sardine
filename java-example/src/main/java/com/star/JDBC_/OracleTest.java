@@ -1,4 +1,4 @@
-package com.star.JDBC;
+package com.star.JDBC_;
 
 import java.sql.*;
 

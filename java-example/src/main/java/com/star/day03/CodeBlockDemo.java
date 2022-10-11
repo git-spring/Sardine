@@ -7,8 +7,8 @@ package com.star.day03;
 
 
 /**
- * Java 代码块
- * 在 Java中,使用 { } 括起来的代码被称为代码块(Code block) , java 中的四种代码块
+ * java 代码块
+ * 在 java中,使用 { } 括起来的代码被称为代码块(Code block) , java 中的四种代码块
  *     1. 普通代码块
  *         写在方法中的代码
  *     2. 静态代码块

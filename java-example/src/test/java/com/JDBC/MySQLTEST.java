@@ -1,7 +1,7 @@
 package com.JDBC;
 
-import com.star.JDBC.ConnectionPool;
-import com.star.JDBC.JDBCMySQL;
+import com.star.JDBC_.ConnectionPool;
+import com.star.JDBC_.JDBCMySQL;
 import org.junit.Test;
 
 import java.sql.SQLException;
