@@ -33,7 +33,7 @@ class Outer04 {
                 System.out.println(destination);
                 System.out.println(Outer04.this.value);
             }
-        };    // 这是return语句,这里必须有;号
+        };    // 这是一行语句,这里必须有;号
         // lambda 的形式
         //return () -> System.out.println(destination);
     }

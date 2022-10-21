@@ -18,6 +18,8 @@ public class Enumeration01 {
         for (Season value:values) {
             System.out.println(value);
         }
+
+        String name = Season.SPRING.getEnumName(1);
     }
 }
 
@@ -51,6 +53,17 @@ enum Season {
     public String getDescription() {
         return description;
     }
+
+    // 普通方法
+    public  String getEnumName(int index){
+        for (Season season : Season.values()){
+            if (season.getName()==name){
+                return season.getName();
+            }
+        }
+        return null;
+    }
+
 
     @Override
     public String toString() {

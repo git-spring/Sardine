@@ -1,8 +1,6 @@
 package com.dh
 
 import java.io.File
-
-import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql._
 
 object SparkSqlDemo {
@@ -24,12 +22,11 @@ object SparkSqlDemo {
                 .getOrCreate()
 
         import spark.implicits._
-        import spark.sql
 
         // 从hive中读取数据
-        val hiveTable: DataFrame = spark.sql("select * from dm_dhyw.dm_yw_alcxjyzbrbb_cartype limit 3")
+        val hiveTable: DataFrame = spark.sql("select count(*) from student ")
         hiveTable.show()
-        val frame: DataFrame = hiveTable.select("statcom","cartypecode","qiandanday")
+        val frame: DataFrame = hiveTable.select("id","name")
         val rows: Array[Row] = frame.collect()
 
         rows.foreach(println(_))
