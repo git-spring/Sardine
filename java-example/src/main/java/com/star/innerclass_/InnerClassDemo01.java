@@ -23,8 +23,10 @@ class Outer01 {
      private int value = 100;
     // 定义在成员位置,可以扩展java的单继承机制
     public class Inner01 extends A {
+        int value = 200;
         public void show() {
             System.out.println("内部类的show方法");
+            System.out.println(value);
             System.out.println(Outer01.this.value);   // 访问外部类的私有属性
         }
     }

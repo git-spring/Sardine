@@ -2,6 +2,7 @@ package com.star.IO_;
 
 
 import com.star.file_.FileDemo;
+import com.star.file_.FileUtil;
 import com.star.utility.StartIO;
 import org.apache.log4j.Logger;
 
@@ -16,7 +17,7 @@ public class ReaderWriter {
     public static void main(String[] args) throws IOException {
 
 
-        List<String> fileName = FileDemo.getFileName("C:\\Users\\Spring\\Desktop\\mysql2oracle");
+        List<String> fileName = FileUtil.getFileName("C:\\Users\\Spring\\Desktop\\mysql2oracle");
         String dir = "C:\\Users\\Spring\\Desktop\\mysql2oracle";   // 目录
         String dir1 = "C:\\Users\\Spring\\Desktop\\oracle\\";   // 目录
 
@@ -193,9 +194,9 @@ public class ReaderWriter {
     }
 
     // 复制文本,或按指定逻辑处理文本
-    public static void copy(String source, String desc) {
+    public static void copy(String source, String desc) throws FileNotFoundException {
 
-        List<String> fileName = FileDemo.getFileName(source); // 获取指定目录下的所有文件
+        List<String> fileName = FileUtil.getFileName(source); // 获取指定目录下的所有文件
         for (String file : fileName) {
             BufferedReader br = null;
             BufferedWriter bw = null;
