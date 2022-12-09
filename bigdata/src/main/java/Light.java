@@ -10,6 +10,8 @@ import java.awt.Point;
 import java.awt.PointerInfo;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Random;
 
 /**
@@ -21,18 +23,19 @@ public class Light {
         System.out.println("此窗口勿关闭...");
 
         while (true) {
-            if (!mouseInfo()) {
+            if (mouseInfo()) {
                 try {
 
                     Robot robot = new Robot();
                     Random random = new Random();
                     int a = 0;
-                    robot.delay(3000);
+                    robot.delay(500);
                     robot.mouseMove(1400, 1050);
-                    a = Math.abs(random.nextInt()) % 100 + 50;
+                    a = Math.abs(random.nextInt()) % 100 + 10;
                     robot.delay(a);
                     robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-                    a = Math.abs(random.nextInt()) % 50 + 50;
+                    getCurrentTime();
+                    a = Math.abs(random.nextInt()) % 50 + 10;
                     robot.delay(a);
                     robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
                     Thread.sleep(60000);
@@ -58,9 +61,17 @@ public class Light {
 
         // 判断鼠标位置
         if (x == x1 | y == y1) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
+    }
+
+    public static void getCurrentTime(){
+
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = sdf.format(cal.getTime());
+        System.out.println(format);
     }
 
 }

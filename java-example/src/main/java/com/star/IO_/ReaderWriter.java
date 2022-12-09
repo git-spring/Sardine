@@ -1,126 +1,14 @@
 package com.star.IO_;
 
 
-import com.star.file_.FileDemo;
-import com.star.file_.FileUtil;
-import com.star.utility.StartIO;
-import org.apache.log4j.Logger;
 
+import org.apache.log4j.Logger;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 // java 字符流 只能处理字符
 public class ReaderWriter {
     static Logger logger = Logger.getLogger(ReaderWriter.class);
-
-    public static void main(String[] args) throws IOException {
-
-
-        List<String> fileName = FileUtil.getFileName("C:\\Users\\Spring\\Desktop\\mysql2oracle");
-        String dir = "C:\\Users\\Spring\\Desktop\\mysql2oracle";   // 目录
-        String dir1 = "C:\\Users\\Spring\\Desktop\\oracle\\";   // 目录
-
-        String comments = "";  // 拼接注释
-        for (String name : fileName) {
-            String absPath = dir + "\\" + name;
-            BufferedReader br = new BufferedReader(new FileReader(absPath));   // 读取到文件
-            BufferedWriter bw = new BufferedWriter(new FileWriter(dir1 + name));
-            BufferedWriter bw1 = new BufferedWriter(new FileWriter("C:\\Users\\Spring\\Desktop\\comments.sql"));
-            String tableName = "";  // 表名
-            String pkString = "";  // 主键
-            String indexString = "";  // 索引
-            List<String> lidx = new ArrayList<>();  // 存放索引的集合
-            // 下面做处理
-            String text = "";  // 拼接的字符串
-            String line;  // 每次读取到的数据
-            while ((line = br.readLine()) != null) {
-                if (line.startsWith("DROP TABLE")) {
-                    String tname = line.split(" ")[4].replaceAll("`", "").toUpperCase();
-                    line = "DROP TABLE ODS.RE_" + tname + "\n";
-                }
-                // 处理 create
-                else if (line.startsWith("CREATE TABLE")) {
-                    String[] split = line.split(" ");
-                    tableName = "ODS.RE_" + split[2].replaceAll("`", "");
-                    line = split[0] + " " + split[1] + " ODS.RE_" + split[2].replaceAll("`", "") + " " + split[4] + "\n";
-                } else if (line.contains("COMMENT")) {
-                    String[] split = line.replaceAll("`", "").trim().split(" ");
-                    String columnName = split[0];
-                    String columnType = typeCheck(split[1]);
-                    String[] split1 = line.split("COMMENT");
-                    if (columnName.toUpperCase().equals("UPDATE_TIME")) {  // 最后一个字段为update_time ,如果是最后一个则后面不用加 ','号
-                        line = columnName + " " + columnType + "\n";
-                    } else {
-                        line = columnName + " " + columnType + ",\n";
-                    }
-
-                    String comments1 = "COMMENT ON COLUMN " + tableName + "." + columnName + " IS " + split1[1].replaceAll(",", "") + ";\n";
-                    comments = comments + comments1;
-                } else if (line.trim().contains("SET FOREIGN_KEY_CHECKS")) {
-                    line = "";
-                } else if (line.contains("PRIMARY KEY")) { // 处理主键
-                    pkString = line.split("`")[1];
-                    line = "";
-                } else if (line.contains("INDEX `")) {  // 处理索引
-                    String[] split = line.split("`");
-                    indexString = split[1] + " " + split[3];
-                    lidx.add(indexString);
-                    line = "";
-                } else if (line.startsWith(") ")) {
-                    line = ");";
-                } else {
-                    line = line + "\n";
-                }
-                text = text + line;
-            }
-            bw1.append(comments.toUpperCase());
-            bw1.flush();
-            if (pkString != null && pkString != "") {    // 如果有主键,则拼接
-                pkString = "ALTER TABLE " + tableName + " ADD CONSTRAINT PK_" + name.split("\\.")[0] + " PRIMARY KEY (" + pkString + ");\n";
-            }
-            text = text + pkString;
-
-            // 拼接索引
-            for (String s : lidx) {
-                String[] split = s.split(" ");
-                String ss = "CREATE INDEX " + split[0] + " ON " + tableName + " (" + split[1] + ");\n";
-                text = text + ss;
-            }
-
-            System.out.println(text.toUpperCase());
-            bw.append(text.toUpperCase());
-            bw.flush();
-        }
-
-
-        //readerDemo();
-        //writerDemo();
-        //copy("java-example/file/poem.txt","java-example/file/output.txt");
-    }
-
-
-    private static String typeCheck(String type) {
-        String newType = null;
-        if (type.toLowerCase().contains("int")
-                || type.toLowerCase().contains("double")
-                || type.toLowerCase().contains("bigint")
-                ||type.toLowerCase().contains("decimal") ) {
-            newType = "number";
-        } else if (type.toLowerCase().contains("varchar")) {   // varchar 变为varchar2 ,长度*2
-            // 变更后的长度
-            int length = Integer.valueOf(type.substring(type.indexOf('(') + 1, type.indexOf(')'))) * 2;
-            if(length>=4000){   // oracle 中 varchar2 最大长度为4000
-                length=4000;
-            }
-            newType = "varchar2(" + length + ")";
-        } else if (type.toLowerCase().contains("char") || type.toLowerCase().equals("date")) {
-            newType = type;
-        } else if (type.toLowerCase().contains("datetime") || type.toLowerCase().contains("timestamp")) {
-            newType = "date";
-        }
-        return newType;
-    }
 
     //字符输入流
     public static void readerDemo() {
@@ -193,44 +81,5 @@ public class ReaderWriter {
         }
     }
 
-    // 复制文本,或按指定逻辑处理文本
-    public static void copy(String source, String desc) throws FileNotFoundException {
-
-        List<String> fileName = FileUtil.getFileName(source); // 获取指定目录下的所有文件
-        for (String file : fileName) {
-            BufferedReader br = null;
-            BufferedWriter bw = null;
-            try {
-                br = new BufferedReader(new FileReader(source + file));
-                bw = new BufferedWriter(new FileWriter(desc + file));
-                String line = "";                                 // 临时存储读取到的每行文本的变量
-                String text = "";                                 // 拼接的文本
-                while ((line = br.readLine()) != null) {
-                    line = handleFile(line);                     // 对文本内容进行处理
-                    text = text + line;                          // 把处理后的文本拼接
-                }
-                bw.write(text);
-                bw.flush();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
-    /**
-     * 对文本内容进行处理
-     *
-     * @param line 读取到的每行文本
-     * @return 处理后的每行文本
-     */
-    static String handleFile(String line) {
-        if (line != null) {
-            return line + "\n";
-        }
-        return null;
-    }
 
 }

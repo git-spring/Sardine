@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="user" class="com.XML.User"></bean>
+    <!--set 方法注入属性 需要有set方法-->
+    <bean id="user1" class="com.XML.User" >
+        <property name="name" value="修"></property>   <!-- DI 依赖注入, 注入属性-->
+        <property name="age" value="20"></property>
+    </bean>
+
+    <!-- 有参构造注入属性-->
+    <bean id="user2" class="com.XML.User" >
+        <constructor-arg name = "name" value ="椿"></constructor-arg>
+        <constructor-arg name = "age" value ="8000"></constructor-arg>
+    </bean>
+
+    <!--注入外部属性-->
+    <bean id="user3" class="com.XML.User">
+        <property name="name" value="修"></property>
+        <property name="age" value="20"></property>
+        <property name="book" ref="bookA"></property>  <!-- 注入外部属性 -->
+    </bean>
+
+    <bean id="bookA" class="com.XML.Book">
+        <property name="name" value="《变形记》"></property>
+        <property name="author" value="卡夫卡"></property>
+    </bean>
+
+</beans>

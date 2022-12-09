@@ -17,6 +17,7 @@
         <module>Spark4Job</module>
         <module>ABCDE</module>
         <module>scala-example</module>
+        <module>Silkworm</module>
     </modules>
 
     <!--	外部依赖放在dependencyManagement 中方便统一管理,各子项目按需取用-->

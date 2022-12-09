@@ -1,7 +1,6 @@
 package com.IO;
 
 import com.star.IO_.ReaderWriter;
-import com.star.file_.FileDemo;
 import com.star.file_.FileUtil;
 import org.junit.Test;
 
@@ -10,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author Spring
@@ -32,16 +30,13 @@ public class FileDemoTest {
         }
     }
 
-    @Test
-    public void copy() throws FileNotFoundException {
-        rw.copy("C:\\Users\\Spring\\Desktop\\mysql2oracle\\",
-                "C:\\Users\\Spring\\Desktop\\oracle\\");
-    }
+
 
     @Test
     public void fileSize() throws FileNotFoundException {
-        Map<String, Long> fileSize = f.getFileSize("E:\\04javaProject\\Sardine\\.git\\objects");
+        Map<String, Long> fileSize = f.getFileSize("F:\\person\\0\\tp");
         for (String key : fileSize.keySet()) {
+            if (fileSize.get(key)>1024*1024*1024)  // 文件超过一定大小
             System.out.println(key+" ------- "+  fileSize.get(key));
         }
     }
