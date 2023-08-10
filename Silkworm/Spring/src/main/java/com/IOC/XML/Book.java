@@ -1,4 +1,4 @@
-package com.XML;
+package com.IOC.XML;
 
 /**
  * @author liudw
