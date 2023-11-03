@@ -15,7 +15,6 @@
         <module>java-example</module>
         <module>springboot</module>
         <module>Spark4Job</module>
-        <module>ABCDE</module>
         <module>scala-example</module>
         <module>Silkworm</module>
     </modules>

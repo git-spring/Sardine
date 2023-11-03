@@ -20,7 +20,7 @@ import java.util.Random;
 public class Light {
     public static void main(String[] args) throws AWTException, InterruptedException {
 
-        System.out.println("此窗口勿关闭...");
+        System.out.println("success");
 
         while (true) {
             if (mouseInfo()) {

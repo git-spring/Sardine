@@ -63,12 +63,11 @@ public class JDBCMySQL {
         logger.info("JDBC 批量向MySQL写入数据");
         try {
             conn.setAutoCommit(false);   // 关闭自动commit
-            PreparedStatement pstm = conn.prepareStatement("insert into  sql50_1.test values (?,?,?)");
+            PreparedStatement pstm = conn.prepareStatement("insert into  spring.test0920 values (?,default )");
             Long time1 = System.currentTimeMillis();
-            for (int i = 1; i <= 10000; i++) {
-                pstm.setInt(1, i);
-                pstm.setString(2, "孙悟空" + String.valueOf(i));
-                pstm.setInt(3, i);
+            for (int i = 1; i <= 1000; i++) {
+                pstm.setString(1, "19900415");
+
                 pstm.addBatch();
             }
             Long time2 = System.currentTimeMillis();
@@ -76,9 +75,9 @@ public class JDBCMySQL {
             conn.commit();
             logger.info("写入成功!");
             Long time3 = System.currentTimeMillis();
-            System.out.println(time2 - time1);
-            System.out.println(time3 - time2);
-            System.out.println(time3 - time1);
+            // System.out.println(time2 - time1);
+            //System.out.println(time3 - time2);
+            System.out.println("写入花费 " + (time3 - time1) +" (ms) ");
         } catch (SQLException e) {
             logger.error("写入失败...", e);
         }
